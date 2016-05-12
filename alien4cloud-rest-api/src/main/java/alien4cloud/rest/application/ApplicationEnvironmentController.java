@@ -5,10 +5,9 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import alien4cloud.exception.DeleteLastApplicationEnvironmentException;
 import lombok.extern.slf4j.Slf4j;
 
-import org.elasticsearch.index.query.FilterBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,6 +23,7 @@ import alien4cloud.dao.IGenericSearchDAO;
 import alien4cloud.dao.model.FacetedSearchResult;
 import alien4cloud.dao.model.GetMultipleDataResult;
 import alien4cloud.exception.ApplicationVersionNotFoundException;
+import alien4cloud.exception.DeleteLastApplicationEnvironmentException;
 import alien4cloud.exception.InvalidArgumentException;
 import alien4cloud.model.application.Application;
 import alien4cloud.model.application.ApplicationEnvironment;
@@ -52,7 +52,8 @@ import io.swagger.annotations.ApiOperation;
 
 @Slf4j
 @RestController
-@RequestMapping({"/rest/applications/{applicationId:.+}/environments", "/rest/v1/applications/{applicationId:.+}/environments", "/rest/latest/applications/{applicationId:.+}/environments"})
+@RequestMapping({ "/rest/applications/{applicationId:.+}/environments", "/rest/v1/applications/{applicationId:.+}/environments",
+        "/rest/latest/applications/{applicationId:.+}/environments" })
 @Api(value = "", description = "Manages application's environments")
 public class ApplicationEnvironmentController {
 
@@ -76,7 +77,7 @@ public class ApplicationEnvironmentController {
     @RequestMapping(value = "/search", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("isAuthenticated()")
     public RestResponse<GetMultipleDataResult<ApplicationEnvironmentDTO>> search(@PathVariable String applicationId, @RequestBody SearchRequest searchRequest) {
-        FilterBuilder authorizationFilter = getEnvrionmentAuthorizationFilters(applicationId);
+        QueryBuilder authorizationFilter = getEnvrionmentAuthorizationFilters(applicationId);
         Map<String, String[]> applicationEnvironmentFilters = getApplicationEnvironmentFilters(applicationId);
         GetMultipleDataResult<ApplicationEnvironment> searchResult = alienDAO.search(ApplicationEnvironment.class, searchRequest.getQuery(),
                 applicationEnvironmentFilters, authorizationFilter, null, searchRequest.getFrom(), searchRequest.getSize());
@@ -89,7 +90,7 @@ public class ApplicationEnvironmentController {
         return RestResponseBuilder.<GetMultipleDataResult<ApplicationEnvironmentDTO>> builder().data(searchResultDTO).build();
     }
 
-    private FilterBuilder getEnvrionmentAuthorizationFilters(String applicationId) {
+    private QueryBuilder getEnvrionmentAuthorizationFilters(String applicationId) {
         Application application = applicationService.checkAndGetApplication(applicationId);
         if (AuthorizationUtil.hasAuthorizationForApplication(application)) {
             return null;

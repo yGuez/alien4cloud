@@ -1,15 +1,15 @@
 package alien4cloud.paas.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
 import org.elasticsearch.annotation.DateField;
 import org.elasticsearch.annotation.ESObject;
 import org.elasticsearch.annotation.StringField;
 import org.elasticsearch.annotation.TimeStamp;
 import org.elasticsearch.annotation.query.TermFilter;
 import org.elasticsearch.mapping.IndexType;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
@@ -24,6 +24,6 @@ public abstract class AbstractMonitorEvent {
     private String orchestratorId;
     @TermFilter
     @DateField
-    @TimeStamp(format = "", index = IndexType.not_analyzed)
+    @TimeStamp(index = IndexType.not_analyzed)
     private long date;
 }

@@ -11,7 +11,7 @@ import alien4cloud.tosca.parser.ParsingErrorLevel;
 import alien4cloud.tosca.parser.impl.ErrorCode;
 import alien4cloud.tosca.parser.impl.base.ScalarParser;
 import alien4cloud.tosca.parser.mapping.DefaultParser;
-import org.elasticsearch.common.collect.Maps;
+import com.google.common.collect.Maps;
 import org.springframework.stereotype.Component;
 import org.yaml.snakeyaml.nodes.MappingNode;
 import org.yaml.snakeyaml.nodes.Node;

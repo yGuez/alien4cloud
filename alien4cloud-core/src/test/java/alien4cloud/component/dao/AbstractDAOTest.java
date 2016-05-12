@@ -4,6 +4,8 @@ import java.util.concurrent.ExecutionException;
 
 import javax.annotation.Resource;
 
+import org.elasticsearch.action.deletebyquery.DeleteByQueryAction;
+import org.elasticsearch.action.deletebyquery.DeleteByQueryRequestBuilder;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.mapping.ElasticSearchClient;
@@ -31,8 +33,9 @@ public abstract class AbstractDAOTest {
         nodeClient.admin().indices().prepareRefresh(indexName).execute().actionGet();
     }
 
-    private void clearIndex(String indexName) throws InterruptedException, ExecutionException {
-        nodeClient.prepareDeleteByQuery(indexName).setQuery(QueryBuilders.matchAllQuery()).execute().get();
+    private void clearIndex(String indexName, String... types) throws InterruptedException, ExecutionException {
+        new DeleteByQueryRequestBuilder(nodeClient, DeleteByQueryAction.INSTANCE).setIndices(indexName).setTypes(types).setQuery(QueryBuilders.matchAllQuery())
+                .execute().actionGet();
     }
 
     public void refresh() {

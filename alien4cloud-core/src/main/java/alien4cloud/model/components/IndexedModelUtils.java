@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.elasticsearch.common.collect.Maps;
+import com.google.common.collect.Maps;
 
 import alien4cloud.exception.IndexingServiceException;
 import alien4cloud.model.common.Tag;

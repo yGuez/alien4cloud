@@ -3,11 +3,6 @@ package alien4cloud.model.deployment;
 import java.util.Date;
 import java.util.Map;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import org.elasticsearch.annotation.ESObject;
 import org.elasticsearch.annotation.Id;
 import org.elasticsearch.annotation.StringField;
@@ -18,6 +13,11 @@ import org.elasticsearch.mapping.IndexType;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.google.common.collect.Maps;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * Represents a deployment in ALIEN.
@@ -76,7 +76,7 @@ public class Deployment {
     private String versionId;
 
     /** Start date of the deployment */
-    @TimeStamp(format = "")
+    @TimeStamp
     private Date startDate;
 
     /** End date of the deployment. */

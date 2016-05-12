@@ -6,7 +6,7 @@ import java.util.Set;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.elasticsearch.index.query.FilterBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import alien4cloud.dao.ElasticSearchDAO;
 import alien4cloud.dao.IGenericSearchDAO;
-import alien4cloud.dao.model.FetchContext;
+import alien4cloud.dao.FetchContext;
 import alien4cloud.dao.model.GetMultipleDataResult;
 import alien4cloud.model.application.Application;
 import alien4cloud.model.components.IndexedNodeType;
@@ -35,7 +35,7 @@ import io.swagger.annotations.ApiOperation;
  * @author 'Igor Ngouagna'
  */
 @RestController
-@RequestMapping({"/rest/quicksearch", "/rest/v1/quicksearch", "/rest/latest/quicksearch"})
+@RequestMapping({ "/rest/quicksearch", "/rest/v1/quicksearch", "/rest/latest/quicksearch" })
 public class QuickSearchController {
     @Resource(name = "alien-es-dao")
     private IGenericSearchDAO alienDAO;
@@ -64,7 +64,7 @@ public class QuickSearchController {
 
         // Adding filters to get only authorized applications
         // only filter on users roles on the application if the current user is not an ADMIN
-        FilterBuilder authorizationFilter = AuthorizationUtil.getResourceAuthorizationFilters();
+        QueryBuilder authorizationFilter = AuthorizationUtil.getResourceAuthorizationFilters();
 
         GetMultipleDataResult<?> searchResultApplications = searchByType(requestObject, authoIndexes, classes, null, authorizationFilter);
 
@@ -78,8 +78,8 @@ public class QuickSearchController {
         return RestResponseBuilder.<GetMultipleDataResult> builder().data(searchResult).build();
     }
 
-    private GetMultipleDataResult searchByType(BasicSearchRequest requestObject, Set<String> authoIndexes, Set<Class<?>> classes,
-            Map<String, String[]> filters, FilterBuilder filterBuilder) {
+    private GetMultipleDataResult searchByType(BasicSearchRequest requestObject, Set<String> authoIndexes, Set<Class<?>> classes, Map<String, String[]> filters,
+            QueryBuilder filterBuilder) {
 
         String[] indices = authoIndexes.toArray(new String[authoIndexes.size()]);
         if (indices.length == 0) {
@@ -87,9 +87,7 @@ public class QuickSearchController {
         }
         Class<?>[] classesArray = classes.toArray(new Class<?>[classes.size()]);
 
-        GetMultipleDataResult searchResult = alienDAO.search(indices, classesArray, requestObject.getQuery(), filters, filterBuilder,
-                FetchContext.QUICK_SEARCH, requestObject.getFrom(), requestObject.getSize());
-
-        return searchResult;
+        return alienDAO.search(indices, classesArray, requestObject.getQuery(), filters, filterBuilder, FetchContext.QUICK_SEARCH, requestObject.getFrom(),
+                requestObject.getSize());
     }
 }

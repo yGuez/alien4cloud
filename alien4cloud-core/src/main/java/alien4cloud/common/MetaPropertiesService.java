@@ -1,8 +1,10 @@
 package alien4cloud.common;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
-import org.elasticsearch.common.collect.Maps;
 import org.springframework.stereotype.Service;
 
 import alien4cloud.dao.IGenericSearchDAO;
@@ -14,8 +16,7 @@ import alien4cloud.tosca.properties.constraints.exception.ConstraintValueDoNotMa
 import alien4cloud.tosca.properties.constraints.exception.ConstraintViolationException;
 import alien4cloud.utils.services.ConstraintPropertyService;
 
-import java.util.List;
-import java.util.Map;
+import com.google.common.collect.Maps;
 
 /**
  * Service that manage meta-property for resources with meta-properties.
@@ -37,8 +38,8 @@ public class MetaPropertiesService {
      * @throws ConstraintValueDoNotMatchPropertyTypeException
      * @throws ConstraintViolationException
      */
-    public ConstraintInformation upsertMetaProperty(IMetaProperties resource, String key, String value) throws ConstraintViolationException,
-            ConstraintValueDoNotMatchPropertyTypeException {
+    public ConstraintInformation upsertMetaProperty(IMetaProperties resource, String key, String value)
+            throws ConstraintViolationException, ConstraintValueDoNotMatchPropertyTypeException {
         MetaPropConfiguration propertyDefinition = alienDAO.findById(MetaPropConfiguration.class, key);
         if (propertyDefinition == null) {
             throw new NotFoundException("Property update operation failed. Could not find property definition with id <" + propertyDefinition + ">.");

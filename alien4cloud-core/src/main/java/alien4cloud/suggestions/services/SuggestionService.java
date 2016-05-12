@@ -23,7 +23,7 @@ import org.springframework.stereotype.Component;
 
 import alien4cloud.dao.ElasticSearchDAO;
 import alien4cloud.dao.IGenericSearchDAO;
-import alien4cloud.dao.model.FetchContext;
+import alien4cloud.dao.FetchContext;
 import alien4cloud.dao.model.GetMultipleDataResult;
 import alien4cloud.exception.InvalidArgumentException;
 import alien4cloud.exception.NotFoundException;

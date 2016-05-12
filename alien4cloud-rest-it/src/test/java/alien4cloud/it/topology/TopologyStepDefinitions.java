@@ -26,7 +26,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.common.Strings;
-import org.elasticsearch.common.collect.Maps;
+import com.google.common.collect.Maps;
 import org.elasticsearch.mapping.MappingBuilder;
 import org.junit.Assert;
 

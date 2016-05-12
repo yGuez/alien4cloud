@@ -1,14 +1,15 @@
 package alien4cloud.model.common;
 
-import static alien4cloud.dao.model.FetchContext.SUMMARY;
-import lombok.Getter;
-import lombok.Setter;
+import static alien4cloud.dao.FetchContext.SUMMARY;
 
 import org.elasticsearch.annotation.ESObject;
 import org.elasticsearch.annotation.Id;
 import org.elasticsearch.annotation.query.FetchContext;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * A suggestion linked to a indexed element's property.

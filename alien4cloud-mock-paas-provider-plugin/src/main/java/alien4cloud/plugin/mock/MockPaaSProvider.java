@@ -19,7 +19,7 @@ import javax.annotation.Resource;
 
 import lombok.extern.slf4j.Slf4j;
 
-import org.elasticsearch.common.collect.Maps;
+import com.google.common.collect.Maps;
 
 import alien4cloud.component.ICSARRepositorySearchService;
 import alien4cloud.model.components.IndexedNodeType;

@@ -1,21 +1,12 @@
 package alien4cloud.security;
 
-import alien4cloud.Constants;
-import alien4cloud.security.groups.IAlienGroupDao;
-import alien4cloud.security.model.ApplicationEnvironmentRole;
-import alien4cloud.security.model.ApplicationRole;
-import alien4cloud.security.model.CloudRole;
-import alien4cloud.security.model.Group;
-import alien4cloud.security.model.Role;
-import alien4cloud.security.model.User;
-import alien4cloud.security.spring.Alien4CloudAccessDeniedHandler;
-import alien4cloud.security.spring.FailureAuthenticationEntryPoint;
-import com.google.common.collect.Sets;
 import java.util.Map;
 import java.util.Set;
+
 import lombok.extern.slf4j.Slf4j;
-import org.elasticsearch.index.query.FilterBuilder;
-import org.elasticsearch.index.query.FilterBuilders;
+
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,6 +16,14 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+
+import alien4cloud.Constants;
+import alien4cloud.security.groups.IAlienGroupDao;
+import alien4cloud.security.model.*;
+import alien4cloud.security.spring.Alien4CloudAccessDeniedHandler;
+import alien4cloud.security.spring.FailureAuthenticationEntryPoint;
+
+import com.google.common.collect.Sets;
 
 /**
  * Applications and topologies concerns
@@ -159,28 +158,26 @@ public final class AuthorizationUtil {
      * Add a filter that check for authorizations on resources
      * Takes also in account the ALL_USER group
      */
-    public static FilterBuilder getResourceAuthorizationFilters() {
+    public static QueryBuilder getResourceAuthorizationFilters() {
         final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         if (auth.getAuthorities().contains(new SimpleGrantedAuthority(Role.ADMIN.toString()))) {
             return null;
         }
 
-        FilterBuilder filterBuilder;
+        QueryBuilder filterBuilder;
         User user = (User) auth.getPrincipal();
         if (user.getGroups() != null && !user.getGroups().isEmpty()) {
-            filterBuilder = FilterBuilders.boolFilter()
-                    .should(FilterBuilders.nestedFilter("userRoles", FilterBuilders.termFilter("userRoles.key", auth.getName())))
-                    .should(FilterBuilders.nestedFilter("groupRoles", FilterBuilders.inFilter("groupRoles.key", user.getGroups().toArray())));
+            filterBuilder = QueryBuilders.boolQuery().should(QueryBuilders.nestedQuery("userRoles", QueryBuilders.termQuery("userRoles.key", auth.getName())))
+                    .should(QueryBuilders.nestedQuery("groupRoles", QueryBuilders.termsQuery("groupRoles.key", user.getGroups().toArray())));
         } else {
-            filterBuilder = FilterBuilders.nestedFilter("userRoles", FilterBuilders.termFilter("userRoles.key", auth.getName()));
+            filterBuilder = QueryBuilders.nestedQuery("userRoles", QueryBuilders.termQuery("userRoles.key", auth.getName()));
         }
         Group group = getAllUsersGroup();
         if (group != null) {
             String groupId = group.getId();
             // add ALL_USERS group as OR filter
-            filterBuilder = FilterBuilders.orFilter(filterBuilder,
-                    FilterBuilders.nestedFilter("groupRoles", FilterBuilders.inFilter("groupRoles.key", groupId)));
+            filterBuilder = QueryBuilders.orQuery(filterBuilder, QueryBuilders.nestedQuery("groupRoles", QueryBuilders.termsQuery("groupRoles.key", groupId)));
         }
         return filterBuilder;
     }

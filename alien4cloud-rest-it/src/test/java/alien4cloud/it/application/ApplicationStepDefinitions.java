@@ -46,7 +46,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
-import org.elasticsearch.common.collect.Maps;
+import com.google.common.collect.Maps;
 import org.junit.Assert;
 
 @Slf4j

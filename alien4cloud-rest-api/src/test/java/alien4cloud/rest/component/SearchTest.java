@@ -1,22 +1,14 @@
 package alien4cloud.rest.component;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.annotation.Resource;
 
 import lombok.extern.slf4j.Slf4j;
 
 import org.elasticsearch.client.Client;
-import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.mapping.ElasticSearchClient;
 import org.elasticsearch.mapping.MappingBuilder;
 import org.junit.After;
@@ -26,13 +18,13 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import alien4cloud.model.components.IndexedNodeType;
 import alien4cloud.dao.ElasticSearchDAO;
 import alien4cloud.dao.IGenericSearchDAO;
 import alien4cloud.dao.model.FacetedSearchResult;
-import alien4cloud.rest.model.RestResponse;
 import alien4cloud.model.components.CapabilityDefinition;
+import alien4cloud.model.components.IndexedNodeType;
 import alien4cloud.model.components.RequirementDefinition;
+import alien4cloud.rest.model.RestResponse;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -122,9 +114,9 @@ public class SearchTest {
     }
 
     private void prepareToscaElement() {
-        List<CapabilityDefinition> capa = Lists.newArrayList(new CapabilityDefinition("container", "container", 1), new CapabilityDefinition("container1",
-                "container1", 1), new CapabilityDefinition("container2", "container2", 1), new CapabilityDefinition("container3", "container3", 1),
-                new CapabilityDefinition("war", "war", 1));
+        List<CapabilityDefinition> capa = Lists.newArrayList(new CapabilityDefinition("container", "container", 1),
+                new CapabilityDefinition("container1", "container1", 1), new CapabilityDefinition("container2", "container2", 1),
+                new CapabilityDefinition("container3", "container3", 1), new CapabilityDefinition("war", "war", 1));
         List<RequirementDefinition> req = Lists.newArrayList(new RequirementDefinition("Runtime", "Runtime"), new RequirementDefinition("server", "server"),
                 new RequirementDefinition("blob", "blob"));
 
@@ -133,27 +125,29 @@ public class SearchTest {
         indexedNodeTypeTest.setId("1");
         dataTest.add(indexedNodeTypeTest);
 
-        capa = Lists.newArrayList(new CapabilityDefinition("banana", "banana", 1), new CapabilityDefinition("banana1", "banana1", 1), new CapabilityDefinition(
-                "container", "container", 1), new CapabilityDefinition("banana3", "banana3", 1), new CapabilityDefinition("zar", "zar", 1));
-        req = Lists.newArrayList(new RequirementDefinition("Pant", "Pant"), new RequirementDefinition("DBZ", "DBZ"), new RequirementDefinition("Animes",
-                "Animes"));
+        capa = Lists.newArrayList(new CapabilityDefinition("banana", "banana", 1), new CapabilityDefinition("banana1", "banana1", 1),
+                new CapabilityDefinition("container", "container", 1), new CapabilityDefinition("banana3", "banana3", 1),
+                new CapabilityDefinition("zar", "zar", 1));
+        req = Lists.newArrayList(new RequirementDefinition("Pant", "Pant"), new RequirementDefinition("DBZ", "DBZ"),
+                new RequirementDefinition("Animes", "Animes"));
         der = Lists.newArrayList("Songoku", "Kami");
         indexedNodeTypeTest2 = createIndexedNodeType("2", "pokerFace", "1.0", "", capa, req, der, new ArrayList<String>());
         dataTest.add(indexedNodeTypeTest2);
 
         capa = Lists.newArrayList(new CapabilityDefinition("potatoe", "potatoe", 1), new CapabilityDefinition("potatoe2", "potatoe2", 1),
-                new CapabilityDefinition("potatoe3", "potatoe3", 1), new CapabilityDefinition("potatoe4", "potatoe4", 1), new CapabilityDefinition("zor",
-                        "zor", 1));
+                new CapabilityDefinition("potatoe3", "potatoe3", 1), new CapabilityDefinition("potatoe4", "potatoe4", 1),
+                new CapabilityDefinition("zor", "zor", 1));
         req = Lists.newArrayList(new RequirementDefinition("OnePiece", "OnePiece"), new RequirementDefinition("beelzebub", "beelzebub"),
                 new RequirementDefinition("DBGT", "DBGT"));
         der = Lists.newArrayList("Jerome", "Sandrini");
         indexedNodeTypeTest3 = createIndexedNodeType("3", "nagative", "1.5", "", capa, req, der, new ArrayList<String>());
         dataTest.add(indexedNodeTypeTest3);
 
-        capa = Lists.newArrayList(new CapabilityDefinition("yams", "yams", 1), new CapabilityDefinition("yams1", "yams1", 1), new CapabilityDefinition(
-                "positiveYes", "positiveYes", 1), new CapabilityDefinition("yams3", "yams3", 1), new CapabilityDefinition("war world", "war world", 1));
-        req = Lists.newArrayList(new RequirementDefinition("Naruto", "Naruto"), new RequirementDefinition("FT", "FT"), new RequirementDefinition("Bleach",
-                "Bleach"));
+        capa = Lists.newArrayList(new CapabilityDefinition("yams", "yams", 1), new CapabilityDefinition("yams1", "yams1", 1),
+                new CapabilityDefinition("positiveYes", "positiveYes", 1), new CapabilityDefinition("yams3", "yams3", 1),
+                new CapabilityDefinition("war world", "war world", 1));
+        req = Lists.newArrayList(new RequirementDefinition("Naruto", "Naruto"), new RequirementDefinition("FT", "FT"),
+                new RequirementDefinition("Bleach", "Bleach"));
         der = Lists.newArrayList("Luc", "Boutier");
         indexedNodeTypeTest4 = createIndexedNodeType("4", "pokerFace", "2.0", "", capa, req, der, new ArrayList<String>());
         dataTest.add(indexedNodeTypeTest4);
@@ -170,7 +164,7 @@ public class SearchTest {
     private void clearIndex(String indexName, Class<?> clazz) throws InterruptedException {
         String typeName = clazz.getSimpleName();
         log.info("Cleaning ES Index " + ElasticSearchDAO.TOSCA_ELEMENT_INDEX + " and type " + typeName);
-        nodeClient.prepareDeleteByQuery(indexName).setQuery(QueryBuilders.matchAllQuery()).setTypes(typeName).execute().actionGet();
+        nodeClient.prepareDelete().setIndex(indexName).setType(typeName).execute().actionGet();
     }
 
     private void assertElementIn(String element, String[] elements) {

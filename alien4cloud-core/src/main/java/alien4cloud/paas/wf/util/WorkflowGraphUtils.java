@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.elasticsearch.common.collect.Lists;
+import com.google.common.collect.Lists;
 
 import alien4cloud.paas.wf.AbstractStep;
 import alien4cloud.paas.wf.Path;

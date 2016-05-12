@@ -4,7 +4,7 @@ import java.util.Date;
 
 import javax.annotation.Resource;
 
-import org.elasticsearch.common.collect.Lists;
+import com.google.common.collect.Lists;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

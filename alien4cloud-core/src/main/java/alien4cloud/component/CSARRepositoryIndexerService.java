@@ -1,20 +1,10 @@
 package alien4cloud.component;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import javax.annotation.Resource;
 
 import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.FilterBuilder;
-import org.elasticsearch.index.query.FilterBuilders;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.mapping.ElasticSearchClient;
@@ -57,10 +47,8 @@ public class CSARRepositoryIndexerService implements ICSARRepositoryIndexerServi
 
     @Override
     public <T extends IndexedToscaElement> Map<String, T> getArchiveElements(String archiveName, String archiveVersion, Class<T> type) {
-        GetMultipleDataResult<T> elements = alienDAO.find(
-                type,
-                MapUtil.newHashMap(new String[] { "archiveName", "archiveVersion" }, new String[][] { new String[] { archiveName },
-                        new String[] { archiveVersion } }), Integer.MAX_VALUE);
+        GetMultipleDataResult<T> elements = alienDAO.find(type, MapUtil.newHashMap(new String[] { "archiveName", "archiveVersion" },
+                new String[][] { new String[] { archiveName }, new String[] { archiveVersion } }), Integer.MAX_VALUE);
 
         Map<String, T> elementsByIds = Maps.newHashMap();
         if (elements == null) {
@@ -72,12 +60,12 @@ public class CSARRepositoryIndexerService implements ICSARRepositoryIndexerServi
         }
         return elementsByIds;
     }
-    
+
     @Override
     public void deleteElements(String archiveName, String archiveVersion) {
 
-        FilterBuilder filter = FilterBuilders.boolFilter().must(FilterBuilders.termFilter("archiveName", archiveName))
-                .must(FilterBuilders.termFilter("archiveVersion", archiveVersion));
+        QueryBuilder filter = QueryBuilders.boolQuery().must(QueryBuilders.termQuery("archiveName", archiveName))
+                .must(QueryBuilders.termQuery("archiveVersion", archiveVersion));
         GetMultipleDataResult<IndexedToscaElement> result = alienDAO.search(IndexedToscaElement.class, null, null, filter, null, 0, Integer.MAX_VALUE);
         IndexedToscaElement[] elements = result.getData();
 
@@ -126,7 +114,7 @@ public class CSARRepositoryIndexerService implements ICSARRepositoryIndexerServi
         }
         saveAndUpdateHighestVersion(element);
     }
-    
+
     /**
      * Delete this indexed element and ensure that the <code>highestVersion<code> and <code>olderVersions</code> properties
      * are up to date for the remaining ones.

@@ -1,5 +1,17 @@
 package alien4cloud.it.common;
 
+import java.nio.file.Files;
+import java.util.List;
+
+import org.elasticsearch.client.Client;
+import org.junit.Assert;
+import org.springframework.expression.EvaluationContext;
+import org.springframework.expression.Expression;
+import org.springframework.expression.ExpressionParser;
+import org.springframework.expression.spel.standard.SpelExpressionParser;
+
+import com.google.common.collect.Lists;
+
 import alien4cloud.audit.AuditESDAO;
 import alien4cloud.dao.ElasticSearchDAO;
 import alien4cloud.dao.model.GetMultipleDataResult;
@@ -27,17 +39,7 @@ import alien4cloud.utils.FileUtil;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import java.nio.file.Files;
-import java.util.List;
 import lombok.extern.slf4j.Slf4j;
-import org.elasticsearch.client.Client;
-import org.elasticsearch.common.collect.Lists;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.junit.Assert;
-import org.springframework.expression.EvaluationContext;
-import org.springframework.expression.Expression;
-import org.springframework.expression.ExpressionParser;
-import org.springframework.expression.spel.standard.SpelExpressionParser;
 
 @Slf4j
 public class CommonStepDefinitions {
@@ -101,7 +103,7 @@ public class CommonStepDefinitions {
 
         // Clean elastic search cluster
         for (String indice : indicesToClean) {
-            esClient.prepareDeleteByQuery(new String[] { indice }).setQuery(QueryBuilders.matchAllQuery()).execute().get();
+            esClient.prepareDelete().setIndex(indice).execute().get();
         }
 
         // clean things in Context

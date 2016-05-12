@@ -2,7 +2,7 @@ package alien4cloud.tosca.properties.constraints;
 
 import java.util.List;
 
-import org.elasticsearch.common.collect.Lists;
+import com.google.common.collect.Lists;
 import org.junit.Test;
 
 import alien4cloud.model.components.IncompatiblePropertyDefinitionException;

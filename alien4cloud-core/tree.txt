@@ -1,0 +1,152 @@
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Alien 4 Cloud Core 1.2.0-SM4-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+Downloading: https://fastconnect.org/maven/content/repositories/fastconnect/alien4cloud/alien4cloud-security/1.2.0-SM4-SNAPSHOT/maven-metadata.xml
+Downloading: https://fastconnect.org/maven/content/repositories/fastconnect-snapshot/alien4cloud/alien4cloud-security/1.2.0-SM4-SNAPSHOT/maven-metadata.xml
+Downloading: https://fastconnect.org/maven/content/repositories/opensource-snapshot/alien4cloud/alien4cloud-security/1.2.0-SM4-SNAPSHOT/maven-metadata.xml
+Downloading: https://fastconnect.org/maven/content/repositories/opensource/alien4cloud/alien4cloud-security/1.2.0-SM4-SNAPSHOT/maven-metadata.xml
+Downloading: https://fastconnect.org/maven/content/repositories/third-party/alien4cloud/alien4cloud-security/1.2.0-SM4-SNAPSHOT/maven-metadata.xml
+Downloading: http://projectlombok.org/mavenrepo/alien4cloud/alien4cloud-security/1.2.0-SM4-SNAPSHOT/maven-metadata.xml
+Downloading: https://oss.sonatype.org/content/repositories/snapshots/alien4cloud/alien4cloud-security/1.2.0-SM4-SNAPSHOT/maven-metadata.xml
+Downloading: https://jcenter.bintray.com/alien4cloud/alien4cloud-security/1.2.0-SM4-SNAPSHOT/maven-metadata.xml
+Downloading: https://fastconnect.org/maven/content/repositories/fastconnect/alien4cloud/alien4cloud-parent/1.2.0-SM4-SNAPSHOT/maven-metadata.xml
+Downloading: https://fastconnect.org/maven/content/repositories/opensource/alien4cloud/alien4cloud-parent/1.2.0-SM4-SNAPSHOT/maven-metadata.xml
+Downloading: https://fastconnect.org/maven/content/repositories/fastconnect-snapshot/alien4cloud/alien4cloud-parent/1.2.0-SM4-SNAPSHOT/maven-metadata.xml
+Downloading: https://fastconnect.org/maven/content/repositories/opensource-snapshot/alien4cloud/alien4cloud-parent/1.2.0-SM4-SNAPSHOT/maven-metadata.xml
+Downloading: https://fastconnect.org/maven/content/repositories/third-party/alien4cloud/alien4cloud-parent/1.2.0-SM4-SNAPSHOT/maven-metadata.xml
+Downloading: http://projectlombok.org/mavenrepo/alien4cloud/alien4cloud-parent/1.2.0-SM4-SNAPSHOT/maven-metadata.xml
+Downloading: https://oss.sonatype.org/content/repositories/snapshots/alien4cloud/alien4cloud-parent/1.2.0-SM4-SNAPSHOT/maven-metadata.xml
+Downloading: https://jcenter.bintray.com/alien4cloud/alien4cloud-parent/1.2.0-SM4-SNAPSHOT/maven-metadata.xml
+Downloading: https://fastconnect.org/maven/content/repositories/fastconnect/alien4cloud/alien4cloud-common/1.2.0-SM4-SNAPSHOT/maven-metadata.xml
+Downloading: https://fastconnect.org/maven/content/repositories/opensource/alien4cloud/alien4cloud-common/1.2.0-SM4-SNAPSHOT/maven-metadata.xml
+Downloading: https://fastconnect.org/maven/content/repositories/fastconnect-snapshot/alien4cloud/alien4cloud-common/1.2.0-SM4-SNAPSHOT/maven-metadata.xml
+Downloading: https://fastconnect.org/maven/content/repositories/opensource-snapshot/alien4cloud/alien4cloud-common/1.2.0-SM4-SNAPSHOT/maven-metadata.xml
+Downloading: https://fastconnect.org/maven/content/repositories/third-party/alien4cloud/alien4cloud-common/1.2.0-SM4-SNAPSHOT/maven-metadata.xml
+Downloading: http://projectlombok.org/mavenrepo/alien4cloud/alien4cloud-common/1.2.0-SM4-SNAPSHOT/maven-metadata.xml
+Downloading: https://oss.sonatype.org/content/repositories/snapshots/alien4cloud/alien4cloud-common/1.2.0-SM4-SNAPSHOT/maven-metadata.xml
+Downloading: https://jcenter.bintray.com/alien4cloud/alien4cloud-common/1.2.0-SM4-SNAPSHOT/maven-metadata.xml
+Downloading: https://fastconnect.org/maven/content/repositories/fastconnect-snapshot/fr/lucboutier/elasticsearch/elasticsearch-mapping/1.5.0-SNAPSHOT/maven-metadata.xml
+Downloading: https://fastconnect.org/maven/content/repositories/fastconnect/fr/lucboutier/elasticsearch/elasticsearch-mapping/1.5.0-SNAPSHOT/maven-metadata.xml
+Downloading: https://fastconnect.org/maven/content/repositories/opensource/fr/lucboutier/elasticsearch/elasticsearch-mapping/1.5.0-SNAPSHOT/maven-metadata.xml
+Downloading: https://fastconnect.org/maven/content/repositories/opensource-snapshot/fr/lucboutier/elasticsearch/elasticsearch-mapping/1.5.0-SNAPSHOT/maven-metadata.xml
+Downloading: https://fastconnect.org/maven/content/repositories/third-party/fr/lucboutier/elasticsearch/elasticsearch-mapping/1.5.0-SNAPSHOT/maven-metadata.xml
+Downloading: http://projectlombok.org/mavenrepo/fr/lucboutier/elasticsearch/elasticsearch-mapping/1.5.0-SNAPSHOT/maven-metadata.xml
+Downloading: https://oss.sonatype.org/content/repositories/snapshots/fr/lucboutier/elasticsearch/elasticsearch-mapping/1.5.0-SNAPSHOT/maven-metadata.xml
+Downloading: https://jcenter.bintray.com/fr/lucboutier/elasticsearch/elasticsearch-mapping/1.5.0-SNAPSHOT/maven-metadata.xml
+[WARNING] The POM for fr.lucboutier.elasticsearch:elasticsearch-mapping:jar:1.5.0-SNAPSHOT is invalid, transitive dependencies (if any) will not be available, enable debug logging for more details
+[INFO] 
+[INFO] --- maven-dependency-plugin:2.8:tree (default-cli) @ alien4cloud-core ---
+[INFO] alien4cloud:alien4cloud-core:jar:1.2.0-SM4-SNAPSHOT
+[INFO] +- alien4cloud:alien4cloud-security:jar:1.2.0-SM4-SNAPSHOT:compile
+[INFO] |  +- alien4cloud:alien4cloud-common:jar:1.2.0-SM4-SNAPSHOT:compile
+[INFO] |  |  +- org.eclipse.jgit:org.eclipse.jgit:jar:3.4.1.201406201815-r:compile
+[INFO] |  |  |  +- com.jcraft:jsch:jar:0.1.50:compile
+[INFO] |  |  |  +- com.googlecode.javaewah:JavaEWAH:jar:0.7.9:compile
+[INFO] |  |  |  \- org.apache.httpcomponents:httpclient:jar:4.3.2:compile
+[INFO] |  |  |     \- org.apache.httpcomponents:httpcore:jar:4.3.1:compile
+[INFO] |  |  +- org.apache.commons:commons-lang3:jar:3.3.2:compile
+[INFO] |  |  +- org.apache.commons:commons-collections4:jar:4.1:compile
+[INFO] |  |  +- org.apache.commons:commons-compress:jar:1.9:compile
+[INFO] |  |  +- fr.lucboutier.elasticsearch:elasticsearch-mapping:jar:1.5.0-SNAPSHOT:compile
+[INFO] |  |  +- org.yaml:snakeyaml:jar:1.12:compile
+[INFO] |  |  +- org.springframework:spring-aspects:jar:4.1.4.RELEASE:compile
+[INFO] |  |  +- org.springframework.boot:spring-boot-actuator:jar:1.2.1.RELEASE:compile
+[INFO] |  |  |  +- org.springframework.boot:spring-boot:jar:1.2.1.RELEASE:compile
+[INFO] |  |  |  \- org.springframework.boot:spring-boot-autoconfigure:jar:1.2.1.RELEASE:compile
+[INFO] |  |  +- org.aspectj:aspectjrt:jar:1.7.4:compile
+[INFO] |  |  \- org.aspectj:aspectjweaver:jar:1.7.4:compile
+[INFO] |  +- commons-io:commons-io:jar:1.3.2:compile
+[INFO] |  +- org.springframework.boot:spring-boot-starter-security:jar:1.2.1.RELEASE:compile
+[INFO] |  |  +- org.springframework.boot:spring-boot-starter:jar:1.2.1.RELEASE:compile
+[INFO] |  |  |  \- org.springframework.boot:spring-boot-starter-logging:jar:1.2.1.RELEASE:compile
+[INFO] |  |  |     \- org.slf4j:jul-to-slf4j:jar:1.7.8:compile
+[INFO] |  |  +- org.springframework:spring-web:jar:4.1.4.RELEASE:compile
+[INFO] |  |  +- org.springframework.security:spring-security-config:jar:3.2.5.RELEASE:compile
+[INFO] |  |  \- org.springframework.security:spring-security-web:jar:3.2.5.RELEASE:compile
+[INFO] |  +- org.springframework.security:spring-security-ldap:jar:3.2.5.RELEASE:compile
+[INFO] |  |  +- org.springframework.security:spring-security-core:jar:3.2.5.RELEASE:compile
+[INFO] |  |  \- org.springframework:spring-tx:jar:4.1.4.RELEASE:compile
+[INFO] |  +- org.springframework.security.extensions:spring-security-saml2-core:jar:1.0.1.RELEASE:compile
+[INFO] |  |  +- org.opensaml:opensaml:jar:2.6.1:compile
+[INFO] |  |  |  +- org.opensaml:openws:jar:1.5.1:compile
+[INFO] |  |  |  |  +- org.opensaml:xmltooling:jar:1.4.1:compile
+[INFO] |  |  |  |  |  +- org.bouncycastle:bcprov-jdk15:jar:1.46:compile
+[INFO] |  |  |  |  |  \- ca.juliusdavies:not-yet-commons-ssl:jar:0.3.9:compile
+[INFO] |  |  |  |  +- commons-httpclient:commons-httpclient:jar:3.1:compile
+[INFO] |  |  |  |  \- org.apache.santuario:xmlsec:jar:1.5.6:compile
+[INFO] |  |  |  +- commons-codec:commons-codec:jar:1.7:compile
+[INFO] |  |  |  +- org.owasp.esapi:esapi:jar:2.0.1:compile
+[INFO] |  |  |  +- joda-time:joda-time:jar:2.5:compile
+[INFO] |  |  |  +- xerces:xercesImpl:jar:2.10.0:runtime
+[INFO] |  |  |  +- xalan:serializer:jar:2.7.1:runtime
+[INFO] |  |  |  +- xml-resolver:xml-resolver:jar:1.2:runtime
+[INFO] |  |  |  \- xalan:xalan:jar:2.7.1:runtime
+[INFO] |  |  \- xml-apis:xml-apis:jar:1.4.01:runtime
+[INFO] |  +- org.springframework.social:spring-social-core:jar:1.1.0.RELEASE:compile
+[INFO] |  +- org.springframework.social:spring-social-web:jar:1.1.0.RELEASE:compile
+[INFO] |  |  +- javax.inject:javax.inject:jar:1:compile
+[INFO] |  |  \- org.springframework:spring-webmvc:jar:4.1.4.RELEASE:compile
+[INFO] |  +- org.springframework.social:spring-social-github:jar:1.0.0.M4:compile
+[INFO] |  |  \- org.springframework.social:spring-social-config:jar:1.1.0.RELEASE:compile
+[INFO] |  +- org.springframework.social:spring-social-security:jar:1.1.0.RELEASE:compile
+[INFO] |  +- org.springframework.ldap:spring-ldap-core:jar:2.0.1.RELEASE:compile
+[INFO] |  |  \- org.springframework.data:spring-data-commons:jar:1.9.1.RELEASE:compile
+[INFO] |  |     \- org.slf4j:jcl-over-slf4j:jar:1.7.8:compile
+[INFO] |  +- org.springframework.ldap:spring-ldap-core-tiger:jar:2.0.1.RELEASE:compile
+[INFO] |  \- io.springfox:springfox-swagger2:jar:2.3.1:compile
+[INFO] |     +- org.mapstruct:mapstruct:jar:1.0.0.Final:compile
+[INFO] |     +- io.swagger:swagger-annotations:jar:1.5.5:compile
+[INFO] |     +- io.swagger:swagger-models:jar:1.5.5:compile
+[INFO] |     +- io.springfox:springfox-spi:jar:2.3.1:compile
+[INFO] |     |  \- io.springfox:springfox-core:jar:2.3.1:compile
+[INFO] |     +- io.springfox:springfox-schema:jar:2.3.1:compile
+[INFO] |     +- io.springfox:springfox-swagger-common:jar:2.3.1:compile
+[INFO] |     +- io.springfox:springfox-spring-web:jar:2.3.1:compile
+[INFO] |     +- org.springframework.plugin:spring-plugin-core:jar:1.2.0.RELEASE:compile
+[INFO] |     \- org.springframework.plugin:spring-plugin-metadata:jar:1.2.0.RELEASE:compile
+[INFO] +- org.springframework:spring-beans:jar:4.1.4.RELEASE:compile
+[INFO] |  \- org.springframework:spring-core:jar:4.1.4.RELEASE:compile
+[INFO] |     \- commons-logging:commons-logging:jar:1.2:compile
+[INFO] +- org.springframework:spring-context:jar:4.1.4.RELEASE:compile
+[INFO] |  +- org.springframework:spring-aop:jar:4.1.4.RELEASE:compile
+[INFO] |  |  \- aopalliance:aopalliance:jar:1.0:compile
+[INFO] |  \- org.springframework:spring-expression:jar:4.1.4.RELEASE:compile
+[INFO] +- org.springframework:spring-context-support:jar:4.1.4.RELEASE:compile
+[INFO] +- org.springframework:spring-messaging:jar:4.1.4.RELEASE:compile
+[INFO] +- com.google.guava:guava:jar:15.0:compile
+[INFO] +- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:jar:2.3.1:compile
+[INFO] +- com.fasterxml.jackson.core:jackson-databind:jar:2.3.1:compile
+[INFO] +- com.fasterxml.jackson.core:jackson-core:jar:2.3.1:compile
+[INFO] +- com.fasterxml.jackson.core:jackson-annotations:jar:2.3.0:compile
+[INFO] +- org.codehaus.groovy:groovy-all:jar:2.3.5:compile
+[INFO] +- org.slf4j:slf4j-api:jar:1.7.5:compile
+[INFO] +- org.slf4j:slf4j-log4j12:jar:1.7.5:compile
+[INFO] |  \- log4j:log4j:jar:1.2.16:compile
+[INFO] +- javax.xml.bind:jaxb-api:jar:2.0:compile
+[INFO] |  +- javax.xml.bind:jsr173_api:jar:1.0:compile
+[INFO] |  \- javax.activation:activation:jar:1.1:compile
+[INFO] +- com.sun.xml.bind:jaxb:jar:2.1.9:compile
+[INFO] +- org.hibernate:hibernate-validator:jar:5.0.2.Final:compile
+[INFO] |  +- javax.validation:validation-api:jar:1.1.0.Final:compile
+[INFO] |  +- org.jboss.logging:jboss-logging:jar:3.1.1.GA:compile
+[INFO] |  \- com.fasterxml:classmate:jar:1.0.0:compile
+[INFO] +- javax.el:javax.el-api:jar:3.0.0:compile
+[INFO] +- org.glassfish.web:javax.el:jar:2.2.6:compile
+[INFO] +- org.apache.velocity:velocity:jar:1.7:compile
+[INFO] |  +- commons-collections:commons-collections:jar:3.2.1:compile
+[INFO] |  \- commons-lang:commons-lang:jar:2.4:compile
+[INFO] +- junit:junit:jar:4.11:test
+[INFO] |  \- org.hamcrest:hamcrest-core:jar:1.3:test
+[INFO] +- org.mockito:mockito-all:jar:1.9.0:test
+[INFO] +- org.kubek2k:springockito:jar:1.0.4:test
+[INFO] +- org.springframework:spring-test:jar:4.1.4.RELEASE:test
+[INFO] \- org.projectlombok:lombok:jar:1.14.4:provided
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 3.350 s
+[INFO] Finished at: 2016-05-12T16:39:03+02:00
+[INFO] Final Memory: 22M/304M
+[INFO] ------------------------------------------------------------------------

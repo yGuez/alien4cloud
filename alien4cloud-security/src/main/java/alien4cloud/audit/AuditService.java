@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 
 import org.apache.commons.lang3.StringUtils;
-import org.elasticsearch.index.query.FilterBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -67,7 +67,7 @@ public class AuditService {
     }
 
     public FacetedSearchResult searchAuditTrace(String query, Map<String, String[]> filters, int from, int size) {
-        FilterBuilder authorizationFilter = AuthorizationUtil.getResourceAuthorizationFilters();
+        QueryBuilder authorizationFilter = AuthorizationUtil.getResourceAuthorizationFilters();
         return alienDAO.facetedSearch(AuditTrace.class, query, filters, authorizationFilter, null, from, size, "timestamp", true);
     }
 
@@ -103,8 +103,8 @@ public class AuditService {
             return null;
         }
         Audit audit = getAuditAnnotation(controllerMethod);
-        return new Method(controllerMethod.getMethod().toGenericString(), httpMethod, getAuditCategoryName(controllerMethod, audit), getAuditActionName(
-                controllerMethod, audit));
+        return new Method(controllerMethod.getMethod().toGenericString(), httpMethod, getAuditCategoryName(controllerMethod, audit),
+                getAuditActionName(controllerMethod, audit));
     }
 
     public boolean isMethodAudited(AuditConfiguration auditConfiguration, HandlerMethod controllerMethod) {

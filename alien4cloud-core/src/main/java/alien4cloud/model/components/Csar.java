@@ -1,6 +1,6 @@
 package alien4cloud.model.components;
 
-import static alien4cloud.dao.model.FetchContext.SUMMARY;
+import static alien4cloud.dao.FetchContext.SUMMARY;
 
 import java.util.Set;
 

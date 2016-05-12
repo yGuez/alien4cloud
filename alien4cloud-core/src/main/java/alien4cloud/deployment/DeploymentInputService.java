@@ -15,7 +15,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
-import org.elasticsearch.common.collect.Lists;
+import com.google.common.collect.Lists;
 import org.springframework.stereotype.Service;
 
 @Service

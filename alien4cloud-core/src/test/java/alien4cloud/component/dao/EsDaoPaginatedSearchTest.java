@@ -1,8 +1,6 @@
 package alien4cloud.component.dao;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -14,11 +12,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import lombok.extern.slf4j.Slf4j;
-
 import org.elasticsearch.action.get.GetResponse;
-import org.elasticsearch.index.query.FilterBuilder;
-import org.elasticsearch.index.query.FilterBuilders;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.mapping.MappingBuilder;
@@ -28,19 +22,20 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import alien4cloud.dao.ElasticSearchDAO;
+import alien4cloud.dao.FetchContext;
 import alien4cloud.dao.IGenericSearchDAO;
 import alien4cloud.dao.model.FacetedSearchFacet;
 import alien4cloud.dao.model.FacetedSearchResult;
-import alien4cloud.dao.model.FetchContext;
 import alien4cloud.dao.model.GetMultipleDataResult;
 import alien4cloud.exception.IndexingServiceException;
 import alien4cloud.model.components.CapabilityDefinition;
 import alien4cloud.model.components.IndexedNodeType;
-
-import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:application-context-test.xml")
@@ -80,7 +75,7 @@ public class EsDaoPaginatedSearchTest extends AbstractDAOTest {
         testSimpleSearchWellPaginated(maxElement, size, null);
 
         // test simple find with filters
-        FilterBuilder filter = FilterBuilders.termFilter("capabilities.type", "jndi");
+        QueryBuilder filter = QueryBuilders.termQuery("capabilities.type", "jndi");
         QueryBuilder queryBuilder = QueryBuilders.matchAllQuery();
         queryBuilder = QueryBuilders.filteredQuery(queryBuilder, filter);
 
@@ -104,7 +99,7 @@ public class EsDaoPaginatedSearchTest extends AbstractDAOTest {
         testTextBasedSearchWellPaginated(maxElement, size, searchText, null);
 
         // text search based with filters
-        FilterBuilder filter = FilterBuilders.termFilter("capabilities.type", "jndi");
+        QueryBuilder filter = QueryBuilders.termQuery("capabilities.type", "jndi");
         QueryBuilder queryBuilder = QueryBuilders.matchAllQuery();
         queryBuilder = QueryBuilders.filteredQuery(queryBuilder, filter);
         maxElement = getCount(queryBuilder);
@@ -126,7 +121,6 @@ public class EsDaoPaginatedSearchTest extends AbstractDAOTest {
 
     }
 
-    // @Ignore
     @Test
     public void facetedSearchPaginatedTest() throws IndexingServiceException, IOException, InterruptedException {
         String searchText = "jndi";
@@ -138,7 +132,7 @@ public class EsDaoPaginatedSearchTest extends AbstractDAOTest {
         testFacetedSearchWellPaginated(maxElement, size, searchText, null, null);
 
         // faceted search with filters
-        FilterBuilder filter = FilterBuilders.termFilter("capabilities.type", "jndi");
+        QueryBuilder filter = QueryBuilders.termQuery("capabilities.type", "jndi");
         QueryBuilder queryBuilder = QueryBuilders.matchAllQuery();
         queryBuilder = QueryBuilders.filteredQuery(queryBuilder, filter);
         maxElement = getCount(queryBuilder);
@@ -175,8 +169,8 @@ public class EsDaoPaginatedSearchTest extends AbstractDAOTest {
     }
 
     private void testSimpleSearchWellPaginated(int maxElement, int size, Map<String, String[]> filters) throws IOException {
-        List<IndexedNodeType> expectedDataList = filters != null && filterContainsValue(filters, "jndi") ? new ArrayList<>(jndiTestDataList) : new ArrayList<>(
-                testDataList);
+        List<IndexedNodeType> expectedDataList = filters != null && filterContainsValue(filters, "jndi") ? new ArrayList<>(jndiTestDataList)
+                : new ArrayList<>(testDataList);
         GetMultipleDataResult<IndexedNodeType> searchResp;
         int expectedSize;
         for (int from = 0; from < maxElement; from += size) {

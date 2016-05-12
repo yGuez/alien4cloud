@@ -5,7 +5,6 @@ import java.util.Map;
 
 import lombok.*;
 
-import org.elasticsearch.common.collect.Maps;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -18,6 +17,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.google.common.collect.Maps;
 
 public class JSonMapEntryArraySerializerTest {
 

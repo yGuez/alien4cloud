@@ -10,7 +10,7 @@ import java.util.Map;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.elasticsearch.common.collect.Maps;
+import com.google.common.collect.Maps;
 import org.junit.Assert;
 
 import alien4cloud.dao.model.FacetedSearchResult;

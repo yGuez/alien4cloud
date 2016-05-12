@@ -6,7 +6,7 @@ import alien4cloud.tosca.parser.*;
 import alien4cloud.tosca.parser.impl.ErrorCode;
 import lombok.AllArgsConstructor;
 
-import org.elasticsearch.common.collect.Maps;
+import com.google.common.collect.Maps;
 import org.yaml.snakeyaml.nodes.*;
 
 /**

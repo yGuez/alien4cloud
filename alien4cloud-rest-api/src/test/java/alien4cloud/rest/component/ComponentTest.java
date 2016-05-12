@@ -1,11 +1,6 @@
 package alien4cloud.rest.component;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +12,6 @@ import javax.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 
 import org.elasticsearch.client.Client;
-import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.mapping.ElasticSearchClient;
 import org.elasticsearch.mapping.MappingBuilder;
 import org.junit.After;
@@ -28,14 +22,14 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import alien4cloud.Constants;
-import alien4cloud.model.components.IndexedNodeType;
-import alien4cloud.model.common.Tag;
 import alien4cloud.dao.ElasticSearchDAO;
 import alien4cloud.dao.IGenericSearchDAO;
 import alien4cloud.dao.model.GetMultipleDataResult;
+import alien4cloud.model.common.Tag;
+import alien4cloud.model.components.CapabilityDefinition;
+import alien4cloud.model.components.IndexedNodeType;
 import alien4cloud.rest.model.RestErrorCode;
 import alien4cloud.rest.model.RestResponse;
-import alien4cloud.model.components.CapabilityDefinition;
 
 import com.google.common.collect.Lists;
 
@@ -228,7 +222,7 @@ public class ComponentTest {
     private void clearIndex(String indexName, Class<?> clazz) throws InterruptedException {
         String typeName = MappingBuilder.indexTypeFromClass(clazz);
         log.info("Cleaning ES Index " + ElasticSearchDAO.TOSCA_ELEMENT_INDEX + " and type " + typeName);
-        nodeClient.prepareDeleteByQuery(indexName).setQuery(QueryBuilders.matchAllQuery()).setTypes(typeName).execute().actionGet();
+        nodeClient.prepareDelete().setIndex(indexName).setType(typeName).execute().actionGet();
     }
 
     @After

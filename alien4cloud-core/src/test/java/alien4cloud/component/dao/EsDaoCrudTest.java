@@ -14,8 +14,6 @@ import java.util.concurrent.ExecutionException;
 
 import javax.annotation.Resource;
 
-import lombok.extern.slf4j.Slf4j;
-
 import org.apache.commons.lang3.ArrayUtils;
 import org.elasticsearch.action.ActionFuture;
 import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsRequest;
@@ -29,35 +27,31 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import alien4cloud.dao.ElasticSearchDAO;
-import alien4cloud.dao.IGenericSearchDAO;
-import alien4cloud.dao.model.FetchContext;
-import alien4cloud.exception.IndexingServiceException;
-import alien4cloud.model.application.Application;
-import alien4cloud.model.common.Tag;
-import alien4cloud.model.components.CapabilityDefinition;
-import alien4cloud.model.components.IndexedNodeType;
-import alien4cloud.model.components.IndexedToscaElement;
-import alien4cloud.model.components.PropertyDefinition;
-import alien4cloud.model.components.RequirementDefinition;
-import alien4cloud.rest.utils.JsonUtil;
-
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 
+import alien4cloud.dao.ElasticSearchDAO;
+import alien4cloud.dao.FetchContext;
+import alien4cloud.dao.IGenericSearchDAO;
+import alien4cloud.exception.IndexingServiceException;
+import alien4cloud.model.application.Application;
+import alien4cloud.model.common.Tag;
+import alien4cloud.model.components.*;
+import alien4cloud.rest.utils.JsonUtil;
+import lombok.extern.slf4j.Slf4j;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:application-context-test.xml")
 @Slf4j
 public class EsDaoCrudTest extends AbstractDAOTest {
-    private static final String APPLICATION_INDEX = Application.class.getSimpleName().toLowerCase();
 
     private final ObjectMapper jsonMapper = new ObjectMapper();
 
-    private List<Tag> threeTags = Lists.newArrayList(new Tag("node.icon", "my-icon.png"), new Tag("tag1", "My free tag with my free content (tag-0)"), new Tag(
-            "tag2", "Tag2 content"));
+    private List<Tag> threeTags = Lists.newArrayList(new Tag("node.icon", "my-icon.png"), new Tag("tag1", "My free tag with my free content (tag-0)"),
+            new Tag("tag2", "Tag2 content"));
 
     @Resource(name = "alien-es-dao")
     private IGenericSearchDAO dao;
@@ -71,8 +65,8 @@ public class EsDaoCrudTest extends AbstractDAOTest {
     }
 
     @Test
-    public void testInitIndexes() throws InterruptedException, ExecutionException, JsonGenerationException, JsonMappingException, IntrospectionException,
-            IOException {
+    public void testInitIndexes()
+            throws InterruptedException, ExecutionException, JsonGenerationException, JsonMappingException, IntrospectionException, IOException {
         assertIndexExists(ElasticSearchDAO.TOSCA_ELEMENT_INDEX, true);
         assertIndexExists("toto", false);
         assertTypeExists(ElasticSearchDAO.TOSCA_ELEMENT_INDEX, IndexedNodeType.class, true);
@@ -83,7 +77,7 @@ public class EsDaoCrudTest extends AbstractDAOTest {
     public void saveToscaComponentTest() throws IndexingServiceException, IOException {
         dao.save(indexedNodeTypeTest);
         String typeName1 = indexedNodeTypeTest.getClass().getSimpleName().toLowerCase();
-        assertDocumentExisit(ElasticSearchDAO.TOSCA_ELEMENT_INDEX, typeName1, indexedNodeTypeTest.getId(), true);
+        assertDocumentExists(ElasticSearchDAO.TOSCA_ELEMENT_INDEX, typeName1, indexedNodeTypeTest.getId(), true);
 
         GetResponse resp = getDocument(ElasticSearchDAO.TOSCA_ELEMENT_INDEX, typeName1, indexedNodeTypeTest.getId());
         log.info(resp.getSourceAsString());
@@ -176,15 +170,15 @@ public class EsDaoCrudTest extends AbstractDAOTest {
 
         saveDataToES(indexedNodeTypeTest);
         dao.delete(IndexedNodeType.class, indexedNodeTypeTest.getId());
-        assertDocumentExisit(ElasticSearchDAO.TOSCA_ELEMENT_INDEX, typeName1, indexedNodeTypeTest.getId(), false);
+        assertDocumentExists(ElasticSearchDAO.TOSCA_ELEMENT_INDEX, typeName1, indexedNodeTypeTest.getId(), false);
 
         saveDataToES(indexedNodeTypeTest);
         dao.delete(IndexedNodeType.class, indexedNodeTypeTest.getId());
-        assertDocumentExisit(ElasticSearchDAO.TOSCA_ELEMENT_INDEX, typeName1, indexedNodeTypeTest.getId(), false);
+        assertDocumentExists(ElasticSearchDAO.TOSCA_ELEMENT_INDEX, typeName1, indexedNodeTypeTest.getId(), false);
 
         saveDataToES(indexedNodeTypeTest);
         dao.delete(indexedNodeTypeTest.getClass(), indexedNodeTypeTest.getId());
-        assertDocumentExisit(ElasticSearchDAO.TOSCA_ELEMENT_INDEX, typeName1, indexedNodeTypeTest.getId(), false);
+        assertDocumentExists(ElasticSearchDAO.TOSCA_ELEMENT_INDEX, typeName1, indexedNodeTypeTest.getId(), false);
     }
 
     @Test(expected = IndexingServiceException.class)
@@ -210,7 +204,8 @@ public class EsDaoCrudTest extends AbstractDAOTest {
 
         assertEquals(indexedNodeType.getCreationDate(), indexedNodeTypeTest.getCreationDate());
         assertTrue(indexedNodeType.getTags().contains(new Tag("NEWTAG", null)));
-        assertTrue("LastUpdateDate date should be greater than creationDate date", indexedNodeType.getLastUpdateDate().after(indexedNodeType.getCreationDate()));
+        assertTrue("LastUpdateDate date should be greater than creationDate date",
+                indexedNodeType.getLastUpdateDate().after(indexedNodeType.getCreationDate()));
     }
 
     private void updateAndSaveIndexedToscaElement(final List<Tag> tags) {
@@ -227,20 +222,20 @@ public class EsDaoCrudTest extends AbstractDAOTest {
         assertEquals(expected, response.isExists());
     }
 
-    private void assertTypeExists(String indexName, Class<?> clazz, boolean expected) throws InterruptedException, ExecutionException, JsonGenerationException,
-            JsonMappingException, IntrospectionException, IOException {
+    private void assertTypeExists(String indexName, Class<?> clazz, boolean expected)
+            throws InterruptedException, ExecutionException, IntrospectionException, IOException {
         assertTypeExists(indexName, clazz.getSimpleName().toLowerCase(), expected);
     }
 
-    private void assertTypeExists(String indexName, String typeToCheck, boolean expected) throws InterruptedException, ExecutionException,
-            JsonGenerationException, JsonMappingException, IntrospectionException, IOException {
+    private void assertTypeExists(String indexName, String typeToCheck, boolean expected)
+            throws InterruptedException, ExecutionException, IntrospectionException, IOException {
         final ActionFuture<TypesExistsResponse> typeExistsFuture = nodeClient.admin().indices()
                 .typesExists(new TypesExistsRequest(new String[] { indexName }, typeToCheck));
         final TypesExistsResponse response = typeExistsFuture.get();
         assertEquals(expected, response.isExists());
     }
 
-    private void assertDocumentExisit(String indexName, String typeName, String id, boolean expected) {
+    private void assertDocumentExists(String indexName, String typeName, String id, boolean expected) {
         GetResponse response = getDocument(indexName, typeName, id);
         assertEquals(expected, response.isExists());
         assertEquals(expected, !response.isSourceEmpty());
@@ -251,8 +246,9 @@ public class EsDaoCrudTest extends AbstractDAOTest {
     }
 
     private void prepareToscaElement() {
-        List<CapabilityDefinition> capa = Arrays.asList(new CapabilityDefinition("container", "container", 1), new CapabilityDefinition("container1",
-                "container1", 1), new CapabilityDefinition("container2", "container2", 1), new CapabilityDefinition("container3", "container3", 1));
+        List<CapabilityDefinition> capa = Arrays.asList(new CapabilityDefinition("container", "container", 1),
+                new CapabilityDefinition("container1", "container1", 1), new CapabilityDefinition("container2", "container2", 1),
+                new CapabilityDefinition("container3", "container3", 1));
         List<RequirementDefinition> req = Arrays.asList(new RequirementDefinition("Runtime", "Runtime"), new RequirementDefinition("server", "server"),
                 new RequirementDefinition("blob", "blob"));
         List<String> der = Arrays.asList("Parent1", "Parent2");
@@ -261,11 +257,8 @@ public class EsDaoCrudTest extends AbstractDAOTest {
     }
 
     private void saveDataToES(IndexedToscaElement element) throws JsonProcessingException {
-        String json = jsonMapper.writeValueAsString(element);
-        String typeName = IndexedNodeType.class.getSimpleName().toLowerCase();
-        nodeClient.prepareIndex(ElasticSearchDAO.TOSCA_ELEMENT_INDEX, typeName).setSource(json).setRefresh(true).execute().actionGet();
-
-        assertDocumentExisit(ElasticSearchDAO.TOSCA_ELEMENT_INDEX, typeName, element.getId(), true);
+        dao.save(element);
+        assertDocumentExists(ElasticSearchDAO.TOSCA_ELEMENT_INDEX, element.getClass().getSimpleName().toLowerCase(), element.getId(), true);
         refresh();
     }
 

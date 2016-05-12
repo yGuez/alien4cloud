@@ -16,7 +16,7 @@ import alien4cloud.tosca.normative.ToscaType;
 import alien4cloud.tosca.properties.constraints.exception.ConstraintValueDoNotMatchPropertyTypeException;
 import alien4cloud.tosca.properties.constraints.exception.ConstraintViolationException;
 import org.apache.commons.collections4.CollectionUtils;
-import org.elasticsearch.common.collect.Lists;
+import com.google.common.collect.Lists;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;

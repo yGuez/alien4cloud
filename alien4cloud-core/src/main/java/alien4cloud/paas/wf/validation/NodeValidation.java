@@ -4,7 +4,7 @@ import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
 
-import org.elasticsearch.common.collect.Lists;
+import com.google.common.collect.Lists;
 
 import alien4cloud.model.topology.NodeTemplate;
 import alien4cloud.paas.wf.AbstractStep;

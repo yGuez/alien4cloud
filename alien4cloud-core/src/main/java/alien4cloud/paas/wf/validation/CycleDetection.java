@@ -3,7 +3,7 @@ package alien4cloud.paas.wf.validation;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.elasticsearch.common.collect.Lists;
+import com.google.common.collect.Lists;
 
 import alien4cloud.paas.wf.Path;
 import alien4cloud.paas.wf.Workflow;

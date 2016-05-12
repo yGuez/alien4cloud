@@ -2,7 +2,7 @@ package alien4cloud.tosca.parser.impl.advanced;
 
 import java.util.Map;
 
-import org.elasticsearch.common.collect.Maps;
+import com.google.common.collect.Maps;
 import org.springframework.stereotype.Component;
 import org.yaml.snakeyaml.nodes.MappingNode;
 import org.yaml.snakeyaml.nodes.Node;

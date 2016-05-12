@@ -9,7 +9,7 @@ import javax.annotation.Resource;
 
 import lombok.extern.slf4j.Slf4j;
 
-import org.elasticsearch.common.collect.Maps;
+import com.google.common.collect.Maps;
 import org.elasticsearch.mapping.MappingBuilder;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.messaging.simp.SimpMessagingTemplate;

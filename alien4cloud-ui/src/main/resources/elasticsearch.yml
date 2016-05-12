@@ -3,6 +3,7 @@ index:
   number_of_shards: 1
   number_of_replicas: 0
 path:
+  home: ${user.home}/.alien/elasticsearch
   data: ${user.home}/.alien/elasticsearch/data
   work: ${user.home}/.alien/elasticsearch/work
   logs: ${user.home}/.alien/elasticsearch/logs

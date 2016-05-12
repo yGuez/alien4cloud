@@ -1,10 +1,6 @@
 package alien4cloud.orchestrators.services;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -12,7 +8,7 @@ import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 
 import org.apache.commons.lang3.StringUtils;
-import org.elasticsearch.index.query.FilterBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.stereotype.Service;
 
@@ -151,7 +147,7 @@ public class OrchestratorService {
      * @param authorizationFilter authorization filter
      * @return A {@link GetMultipleDataResult} that contains Orchestrator objects.
      */
-    public GetMultipleDataResult<Orchestrator> search(String query, OrchestratorState status, int from, int size, FilterBuilder authorizationFilter) {
+    public GetMultipleDataResult<Orchestrator> search(String query, OrchestratorState status, int from, int size, QueryBuilder authorizationFilter) {
         Map<String, String[]> filters = null;
         if (status != null) {
             filters = MapUtil.newHashMap(new String[] { "status" }, new String[][] { new String[] { status.toString() } });
@@ -196,8 +192,8 @@ public class OrchestratorService {
     public List<Orchestrator> getAllEnabledOrchestrators() {
         return alienDAO.customFindAll(Orchestrator.class, QueryBuilders.termsQuery("state", ENABLED_STATES));
     }
-    
+
     public List<Orchestrator> getAll() {
-       return alienDAO.customFindAll(Orchestrator.class, null);
+        return alienDAO.customFindAll(Orchestrator.class, null);
     }
 }

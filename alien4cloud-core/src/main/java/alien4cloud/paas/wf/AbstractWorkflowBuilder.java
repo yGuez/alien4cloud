@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.elasticsearch.common.collect.Lists;
-import org.elasticsearch.common.collect.Maps;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 import alien4cloud.exception.AlreadyExistException;
 import alien4cloud.model.components.Operation;

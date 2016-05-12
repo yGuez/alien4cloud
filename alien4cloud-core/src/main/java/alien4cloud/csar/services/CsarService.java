@@ -6,11 +6,9 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
-import alien4cloud.model.orchestrators.locations.Location;
 import lombok.extern.slf4j.Slf4j;
 
-import org.elasticsearch.index.query.FilterBuilder;
-import org.elasticsearch.index.query.FilterBuilders;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.stereotype.Component;
 
@@ -25,6 +23,7 @@ import alien4cloud.model.application.Application;
 import alien4cloud.model.common.Usage;
 import alien4cloud.model.components.CSARDependency;
 import alien4cloud.model.components.Csar;
+import alien4cloud.model.orchestrators.locations.Location;
 import alien4cloud.model.templates.TopologyTemplate;
 import alien4cloud.model.topology.Topology;
 import alien4cloud.topology.TopologyService;
@@ -84,10 +83,10 @@ public class CsarService implements ICsarDependencyLoader {
      * @return an array of CSARs that depend on this name:version.
      */
     public Csar[] getDependantCsars(String name, String version) {
-        FilterBuilder filter = FilterBuilders.nestedFilter(
+        QueryBuilder filter = QueryBuilders.nestedQuery(
                 "dependencies",
-                FilterBuilders.boolFilter().must(FilterBuilders.termFilter("dependencies.name", name))
-                        .must(FilterBuilders.termFilter("dependencies.version", version)));
+                QueryBuilders.boolQuery().must(QueryBuilders.termQuery("dependencies.name", name))
+                        .must(QueryBuilders.termQuery("dependencies.version", version)));
         GetMultipleDataResult<Csar> result = csarDAO.search(Csar.class, null, null, filter, null, 0, Integer.MAX_VALUE);
         return result.getData();
     }
@@ -96,10 +95,10 @@ public class CsarService implements ICsarDependencyLoader {
      * @return an array of <code>Topology</code>s that depend on this name:version.
      */
     public Topology[] getDependantTopologies(String name, String version) {
-        FilterBuilder filter = FilterBuilders.nestedFilter(
+        QueryBuilder filter = QueryBuilders.nestedQuery(
                 "dependencies",
-                FilterBuilders.boolFilter().must(FilterBuilders.termFilter("dependencies.name", name))
-                        .must(FilterBuilders.termFilter("dependencies.version", version)));
+                QueryBuilders.boolQuery().must(QueryBuilders.termQuery("dependencies.name", name))
+                        .must(QueryBuilders.termQuery("dependencies.version", version)));
         GetMultipleDataResult<Topology> result = csarDAO.search(Topology.class, null, null, filter, null, 0, Integer.MAX_VALUE);
         return result.getData();
     }
@@ -108,10 +107,10 @@ public class CsarService implements ICsarDependencyLoader {
      * @return an array of CSARs that depend on this name:version.
      */
     public Location[] getDependantLocations(String name, String version) {
-        FilterBuilder filter = FilterBuilders.nestedFilter(
+        QueryBuilder filter = QueryBuilders.nestedQuery(
                 "dependencies",
-                FilterBuilders.boolFilter().must(FilterBuilders.termFilter("dependencies.name", name))
-                        .must(FilterBuilders.termFilter("dependencies.version", version)));
+                QueryBuilders.boolQuery().must(QueryBuilders.termQuery("dependencies.name", name))
+                        .must(QueryBuilders.termQuery("dependencies.version", version)));
         GetMultipleDataResult<Location> result = csarDAO.search(Location.class, null, null, filter, null, 0, Integer.MAX_VALUE);
         return result.getData();
     }

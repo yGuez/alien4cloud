@@ -13,8 +13,8 @@ import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 import org.apache.commons.collections4.CollectionUtils;
-import org.elasticsearch.common.collect.Maps;
-import org.elasticsearch.common.collect.Sets;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.beans.factory.annotation.Value;

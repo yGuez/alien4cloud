@@ -6,9 +6,9 @@ import java.util.concurrent.ExecutionException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.elasticsearch.ElasticsearchException;
 import org.springframework.stereotype.Component;
 
+import alien4cloud.dao.exception.ElasticSearchDAOException;
 import alien4cloud.exception.IndexingServiceException;
 
 /**
@@ -24,7 +24,7 @@ public class ESExceptionHandlingAspect {
     public Object handleException(ProceedingJoinPoint pjp) throws Throwable {
         try {
             return pjp.proceed();
-        } catch (IOException | ExecutionException | ElasticsearchException e) {
+        } catch (IOException | ExecutionException | ElasticSearchDAOException e) {
             String message = logAndGetMessage(pjp, e);
             throw new IndexingServiceException(message, e);
         }

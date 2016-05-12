@@ -9,9 +9,9 @@ import java.util.Set;
 
 import lombok.extern.slf4j.Slf4j;
 
-import org.elasticsearch.common.collect.Lists;
-import org.elasticsearch.common.collect.Maps;
-import org.elasticsearch.common.collect.Sets;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 
 import alien4cloud.paas.plan.ToscaNodeLifecycleConstants;
 import alien4cloud.paas.wf.AbstractStep;

@@ -12,8 +12,8 @@ import java.util.UUID;
 import javax.annotation.Resource;
 
 import org.apache.commons.collections4.MapUtils;
-import org.elasticsearch.common.collect.Lists;
-import org.elasticsearch.common.collect.Sets;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import org.springframework.stereotype.Service;
 
 import alien4cloud.component.ICSARRepositoryIndexerService;

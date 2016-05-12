@@ -7,8 +7,8 @@ import javax.annotation.Resource;
 
 import lombok.extern.slf4j.Slf4j;
 
-import org.elasticsearch.common.collect.Lists;
-import org.elasticsearch.common.collect.Maps;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import org.springframework.stereotype.Component;
 
 import alien4cloud.component.ICSARRepositorySearchService;

@@ -9,7 +9,7 @@ import java.util.Set;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.elasticsearch.common.collect.Lists;
+import com.google.common.collect.Lists;
 
 import alien4cloud.it.Context;
 import alien4cloud.paas.wf.AbstractActivity;

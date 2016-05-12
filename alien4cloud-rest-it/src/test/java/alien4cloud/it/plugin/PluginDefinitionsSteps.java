@@ -13,7 +13,7 @@ import java.util.Map;
 
 import lombok.extern.slf4j.Slf4j;
 
-import org.elasticsearch.common.collect.Lists;
+import com.google.common.collect.Lists;
 import org.junit.Assert;
 
 import alien4cloud.dao.model.GetMultipleDataResult;

@@ -10,7 +10,8 @@ import lombok.SneakyThrows;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.elasticsearch.common.collect.Maps;
+
+import com.google.common.collect.Maps;
 
 public final class AlienUtils {
 

@@ -1,4 +1,4 @@
-package alien4cloud.dao.model;
+package alien4cloud.dao;
 
 public final class FetchContext {
 

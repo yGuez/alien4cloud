@@ -1,7 +1,7 @@
 package alien4cloud.model.components;
 
-import static alien4cloud.dao.model.FetchContext.QUICK_SEARCH;
-import static alien4cloud.dao.model.FetchContext.TAG_SUGGESTION;
+import static alien4cloud.dao.FetchContext.QUICK_SEARCH;
+import static alien4cloud.dao.FetchContext.TAG_SUGGESTION;
 
 import java.util.List;
 import java.util.Map;

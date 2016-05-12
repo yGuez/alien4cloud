@@ -2,7 +2,7 @@ package alien4cloud.tosca.parser.impl.base;
 
 import java.util.Collection;
 
-import org.elasticsearch.common.collect.Sets;
+import com.google.common.collect.Sets;
 
 import alien4cloud.tosca.parser.INodeParser;
 

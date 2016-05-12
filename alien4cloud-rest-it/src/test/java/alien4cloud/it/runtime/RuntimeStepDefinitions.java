@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.elasticsearch.common.collect.Lists;
+import com.google.common.collect.Lists;
 import org.junit.Assert;
 
 import alien4cloud.it.Context;
