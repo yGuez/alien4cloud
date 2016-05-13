@@ -62,24 +62,6 @@ curl -X POST "http://localhost:9200/application/_search?pretty=true" -d '
 {
     "query" : {
         "match_all" : {}
-    },
-    "post_filter" : {
-        "nested" : {
-            "path" : "userRoles",
-            "filter" : {
-                "bool" : {
-                    "must" : [
-                        {
-                            "term" : {"userRoles.key" : "luc"}
-                        },
-                        {
-                            "term" : {"userRoles.value" : "application_manager"}
-                        }
-                    ]
-                }
-            },
-            "_cache" : true
-        }
     }
 }
 '

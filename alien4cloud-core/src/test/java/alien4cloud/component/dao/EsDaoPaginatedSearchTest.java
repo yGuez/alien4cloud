@@ -58,7 +58,7 @@ public class EsDaoPaginatedSearchTest extends AbstractDAOTest {
     @Before
     public void before() throws Exception {
         super.before();
-        saveDataToES(true);
+        saveDataToES();
     }
 
     @Test
@@ -286,7 +286,7 @@ public class EsDaoPaginatedSearchTest extends AbstractDAOTest {
                 .setQuery(queryBuilder).execute().actionGet().getCount();
     }
 
-    private void saveDataToES(boolean refresh) throws IOException, IndexingServiceException {
+    private void saveDataToES() throws IOException, IndexingServiceException {
         testDataList.clear();
 
         Path path = Paths.get("src/test/resources/nodetypes-faceted-search-result.json");
@@ -305,7 +305,6 @@ public class EsDaoPaginatedSearchTest extends AbstractDAOTest {
                 }
             }
         }
-        refresh();
     }
 
     private void assertDocumentExisit(String indexName, String typeName, String id, boolean expected) {

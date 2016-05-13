@@ -3,27 +3,16 @@ package alien4cloud.component.dao;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-import javax.annotation.Resource;
-
-import lombok.extern.slf4j.Slf4j;
-
-import org.elasticsearch.action.get.GetResponse;
-import org.elasticsearch.mapping.MappingBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import alien4cloud.dao.ElasticSearchDAO;
-import alien4cloud.dao.IGenericSearchDAO;
+import com.google.common.collect.Lists;
+
 import alien4cloud.dao.model.FacetedSearchFacet;
 import alien4cloud.dao.model.FacetedSearchResult;
 import alien4cloud.dao.model.GetMultipleDataResult;
@@ -31,13 +20,9 @@ import alien4cloud.exception.IndexingServiceException;
 import alien4cloud.model.common.Tag;
 import alien4cloud.model.components.CapabilityDefinition;
 import alien4cloud.model.components.IndexedNodeType;
+import alien4cloud.model.components.IndexedToscaElement;
 import alien4cloud.model.components.RequirementDefinition;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.collect.Lists;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  *
@@ -50,10 +35,6 @@ import com.google.common.collect.Lists;
 @ContextConfiguration("classpath:application-context-test.xml")
 @Slf4j
 public class EsDaoSearchTest extends AbstractDAOTest {
-    private final ObjectMapper jsonMapper = new ObjectMapper();
-
-    @Resource(name = "alien-es-dao")
-    IGenericSearchDAO dao;
 
     List<IndexedNodeType> dataTest = new ArrayList<>();
 
@@ -62,14 +43,14 @@ public class EsDaoSearchTest extends AbstractDAOTest {
     IndexedNodeType indexedNodeTypeTest3 = null;
     IndexedNodeType indexedNodeTypeTest4 = null;
 
-    private List<Tag> threeTags = Lists.newArrayList(new Tag("icon", "my-icon.png"), new Tag("tag1", "My free tag with my free content (tag-0)"), new Tag(
-            "tag2", "Tag2 content"));
+    private List<Tag> threeTags = Lists.newArrayList(new Tag("icon", "my-icon.png"), new Tag("tag1", "My free tag with my free content (tag-0)"),
+            new Tag("tag2", "Tag2 content"));
 
     @Before
     public void before() throws Exception {
         super.before();
         prepareToscaElement();
-        saveDataToES(true);
+        saveDataToES(dataTest.toArray(new IndexedToscaElement[dataTest.size()]));
     }
 
     @Test
@@ -112,7 +93,7 @@ public class EsDaoSearchTest extends AbstractDAOTest {
     }
 
     @Test
-    public void textBasedSearch() throws IndexingServiceException, JsonParseException, JsonMappingException, IOException, InterruptedException {
+    public void textBasedSearch() throws IndexingServiceException, IOException, InterruptedException {
         // text search based
         String searchText = "positive";
 
@@ -151,7 +132,7 @@ public class EsDaoSearchTest extends AbstractDAOTest {
     }
 
     @Test
-    public void facetedSearchTest() throws IndexingServiceException, JsonParseException, JsonMappingException, IOException, InterruptedException {
+    public void facetedSearchTest() throws IndexingServiceException, IOException, InterruptedException {
         String searchText = "positive";
 
         FacetedSearchResult searchResp = dao.facetedSearch(IndexedNodeType.class, searchText, null, 10);
@@ -213,9 +194,9 @@ public class EsDaoSearchTest extends AbstractDAOTest {
 
     private void prepareToscaElement() {
 
-        List<CapabilityDefinition> capa = Arrays.asList(new CapabilityDefinition("container", "container", 1), new CapabilityDefinition("container1",
-                "container1", 1), new CapabilityDefinition("container2", "container2", 1), new CapabilityDefinition("container3", "container3", 1),
-                new CapabilityDefinition("war", "war", 1));
+        List<CapabilityDefinition> capa = Arrays.asList(new CapabilityDefinition("container", "container", 1),
+                new CapabilityDefinition("container1", "container1", 1), new CapabilityDefinition("container2", "container2", 1),
+                new CapabilityDefinition("container3", "container3", 1), new CapabilityDefinition("war", "war", 1));
         List<RequirementDefinition> req = Arrays.asList(new RequirementDefinition("Runtime", "Runtime"), new RequirementDefinition("server", "server"),
                 new RequirementDefinition("blob", "blob"));
         List<String> der = Arrays.asList("Parent1", "Parent2");
@@ -223,51 +204,33 @@ public class EsDaoSearchTest extends AbstractDAOTest {
                 new Date());
         dataTest.add(indexedNodeTypeTest);
 
-        capa = Arrays.asList(new CapabilityDefinition("banana", "banana", 1), new CapabilityDefinition("banana1", "banana1", 1), new CapabilityDefinition(
-                "container", "container", 1), new CapabilityDefinition("banana3", "banana3", 1), new CapabilityDefinition("zar", "zar", 1));
+        capa = Arrays.asList(new CapabilityDefinition("banana", "banana", 1), new CapabilityDefinition("banana1", "banana1", 1),
+                new CapabilityDefinition("container", "container", 1), new CapabilityDefinition("banana3", "banana3", 1),
+                new CapabilityDefinition("zar", "zar", 1));
         req = Arrays.asList(new RequirementDefinition("Pant", "Pant"), new RequirementDefinition("DBZ", "DBZ"), new RequirementDefinition("Animes", "Animes"));
         der = Arrays.asList("Songoku", "Kami");
         indexedNodeTypeTest2 = TestModelUtil.createIndexedNodeType("2", "pokerFace", "1.0", "", capa, req, der, new ArrayList<String>(), threeTags, new Date(),
                 new Date());
         dataTest.add(indexedNodeTypeTest2);
 
-        capa = Arrays.asList(new CapabilityDefinition("potatoe", "potatoe", 1), new CapabilityDefinition("potatoe2", "potatoe2", 1), new CapabilityDefinition(
-                "potatoe3", "potatoe3", 1), new CapabilityDefinition("potatoe4", "potatoe4", 1), new CapabilityDefinition("zor", "zor", 1));
-        req = Arrays.asList(new RequirementDefinition("OnePiece", "OnePiece"), new RequirementDefinition("beelzebub", "beelzebub"), new RequirementDefinition(
-                "DBGT", "DBGT"));
+        capa = Arrays.asList(new CapabilityDefinition("potatoe", "potatoe", 1), new CapabilityDefinition("potatoe2", "potatoe2", 1),
+                new CapabilityDefinition("potatoe3", "potatoe3", 1), new CapabilityDefinition("potatoe4", "potatoe4", 1),
+                new CapabilityDefinition("zor", "zor", 1));
+        req = Arrays.asList(new RequirementDefinition("OnePiece", "OnePiece"), new RequirementDefinition("beelzebub", "beelzebub"),
+                new RequirementDefinition("DBGT", "DBGT"));
         der = Arrays.asList("Jerome", "Sandrini");
         indexedNodeTypeTest3 = TestModelUtil.createIndexedNodeType("3", "nagative", "1.5", "", capa, req, der, new ArrayList<String>(), threeTags, new Date(),
                 new Date());
         dataTest.add(indexedNodeTypeTest3);
 
-        capa = Arrays.asList(new CapabilityDefinition("yams", "yams", 1), new CapabilityDefinition("yams1", "yams1", 1), new CapabilityDefinition(
-                "positiveYes", "positiveYes", 1), new CapabilityDefinition("yams3", "yams3", 1), new CapabilityDefinition("war world", "war world", 1));
-        req = Arrays
-                .asList(new RequirementDefinition("Naruto", "Naruto"), new RequirementDefinition("FT", "FT"), new RequirementDefinition("Bleach", "Bleach"));
+        capa = Arrays.asList(new CapabilityDefinition("yams", "yams", 1), new CapabilityDefinition("yams1", "yams1", 1),
+                new CapabilityDefinition("Positive.Yes", "Positive.Yes", 1), new CapabilityDefinition("yams3", "yams3", 1),
+                new CapabilityDefinition("war world", "war world", 1));
+        req = Arrays.asList(new RequirementDefinition("Naruto", "Naruto"), new RequirementDefinition("FT", "FT"),
+                new RequirementDefinition("Bleach", "Bleach"));
         der = Arrays.asList("Luc", "Boutier");
         indexedNodeTypeTest4 = TestModelUtil.createIndexedNodeType("4", "pokerFace", "2.0", "", capa, req, der, new ArrayList<String>(), threeTags, new Date(),
                 new Date());
         dataTest.add(indexedNodeTypeTest4);
-    }
-
-    private void saveDataToES(boolean refresh) throws JsonProcessingException {
-        for (IndexedNodeType datum : dataTest) {
-            String json = jsonMapper.writeValueAsString(datum);
-            String typeName = MappingBuilder.indexTypeFromClass(datum.getClass());
-            nodeClient.prepareIndex(ElasticSearchDAO.TOSCA_ELEMENT_INDEX, typeName).setSource(json).setRefresh(refresh).execute().actionGet();
-
-            assertDocumentExisit(ElasticSearchDAO.TOSCA_ELEMENT_INDEX, typeName, datum.getId(), true);
-        }
-        refresh();
-    }
-
-    private void assertDocumentExisit(String indexName, String typeName, String id, boolean expected) {
-        GetResponse response = getDocument(indexName, typeName, id);
-        assertEquals(expected, response.isExists());
-        assertEquals(expected, !response.isSourceEmpty());
-    }
-
-    private GetResponse getDocument(String indexName, String typeName, String id) {
-        return nodeClient.prepareGet(indexName, typeName, id).execute().actionGet();
     }
 }
