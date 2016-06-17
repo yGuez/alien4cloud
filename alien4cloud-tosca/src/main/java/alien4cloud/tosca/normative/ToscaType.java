@@ -23,6 +23,8 @@ public class ToscaType {
     public static final IPropertyType<Frequency> FREQUENCY_TYPE = new FrequencyType();
     public static final IPropertyType<Time> TIME_TYPE = new TimeType();
     public static final IPropertyType<Version> VERSION_TYPE = new VersionType();
+    public static final IPropertyType<Range> RANGE_TYPE = new RangeType();
+
 
     public static final String BOOLEAN = BooleanType.NAME;
     public static final String INTEGER = IntegerType.NAME;
@@ -33,6 +35,7 @@ public class ToscaType {
     public static final String TIME = TimeType.NAME;
     public static final String FREQUENCY = FrequencyType.NAME;
     public static final String VERSION = VersionType.NAME;
+    public static final String RANGE = RangeType.NAME;
     public static final String LIST = "list";
     public static final String MAP = "map";
 
@@ -48,6 +51,7 @@ public class ToscaType {
         TYPES_MAP.put(FREQUENCY, FREQUENCY_TYPE);
         TYPES_MAP.put(TIME, TIME_TYPE);
         TYPES_MAP.put(VERSION, VERSION_TYPE);
+        TYPES_MAP.put(RANGE, RANGE_TYPE);
     }
 
     public static IPropertyType<?> fromYamlTypeName(String typeName) {
