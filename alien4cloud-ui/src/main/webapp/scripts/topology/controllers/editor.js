@@ -9,6 +9,7 @@ define(function (require) {
   var _ = require('lodash');
   var angular = require('angular');
 
+  require('scripts/topology/controllers/editor_topology');
   require('scripts/topology/controllers/editor_browser');
   require('scripts/topology/controllers/editor_workflow');
   require('scripts/topology/controllers/editor_history');

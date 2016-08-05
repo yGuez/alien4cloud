@@ -42,7 +42,14 @@ require.config({
     'd3-tip': 'bower_components/d3-tip/index',
     'graphlib': 'bower_components/graphlib/dist/graphlib.core',
     'dagre': 'bower_components/dagre/dist/dagre.core',
-    'd3-pie': 'bower_components/d3pie/d3pie/d3pie'
+    'd3-pie': 'bower_components/d3pie/d3pie/d3pie',
+    'backbone': 'bower_components/backbone/backbone-min', 
+    'jointjs': 'bower_components/jointjs/dist/joint.core'
+  },
+  map: {
+    '*': { // Backbone requires underscore. This forces requireJS to load lodash instead:
+      'underscore': 'lodash'
+    }
   },
   shim: {
     'angular': {

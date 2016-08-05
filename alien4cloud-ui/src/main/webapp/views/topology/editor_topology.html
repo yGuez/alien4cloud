@@ -1,0 +1,25 @@
+<div id="topology-editor" class="topology-editor" style="height: {{dimensions.height}}px; width: {{dimensions.width}}px;">
+  <div class="topology-row" style="height: {{dimensions.height}}px;">
+    <div id="topology" class="topology-column">
+      <div class="topology topology-column-box" alien-droppable drag-data="" drag-on-drop="nodes.onDragged(data)" ng-init="visual = true;">
+        <div id="topology-paper-box"></div>
+      </div>
+    </div>
+
+    <div id="side-box" class="topology-column" style="width: {{displays.side.size}}px;">
+      <div class="topology-column-box">
+        <div class="topology-column-menu topology-column-menu-left">
+          <i id="side-box-handler" class="fa fa-bars fa-rotate-90 ui-resizable-handle ui-resizable-w resizable-bar"></i>
+        </div>
+        <div class="topology-column-content">
+          <div class="topology-column-content-head">
+            <span>
+              <i class="fa fa-info-circle"></i> This is the side head
+            </span>
+          </div>
+          Some data goes here
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
