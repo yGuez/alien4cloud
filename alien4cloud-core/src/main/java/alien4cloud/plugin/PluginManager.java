@@ -4,10 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.Map.Entry;
 
 import javax.annotation.Resource;
@@ -33,10 +30,7 @@ import alien4cloud.exception.NotFoundException;
 import alien4cloud.plugin.exception.MissingPlugingDescriptorFileException;
 import alien4cloud.plugin.exception.PluginLoadingException;
 import alien4cloud.plugin.model.*;
-import alien4cloud.utils.FileUtil;
-import alien4cloud.utils.MapUtil;
-import alien4cloud.utils.ReflectionUtil;
-import alien4cloud.utils.YamlParserUtil;
+import alien4cloud.utils.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -87,8 +81,7 @@ public class PluginManager {
         // Initialize alien's plugin linkers.
         if (linkers == null) {
             linkers = Lists.newArrayList();
-            Map<String, IPluginLinker> pluginLinkers = alienContext.getBeansOfType(IPluginLinker.class);
-            for (IPluginLinker linker : pluginLinkers.values()) {
+            for (IPluginLinker linker : SpringUtils.getBeansOfType(alienContext, IPluginLinker.class)) {
                 linkers.add(new PluginLinker(linker, getLinkedType(linker)));
             }
         }
@@ -219,8 +212,7 @@ public class PluginManager {
         Path pluginUiPath;
         if (managedPlugin != null) {
             // send events to plugin loading callbacks
-            Map<String, IPluginLoadingCallback> beans = alienContext.getBeansOfType(IPluginLoadingCallback.class);
-            for (IPluginLoadingCallback callback : beans.values()) {
+            for (IPluginLoadingCallback callback : SpringUtils.getBeansOfType(alienContext, IPluginLoadingCallback.class)) {
                 callback.onPluginClosed(managedPlugin);
             }
 
@@ -459,8 +451,7 @@ public class PluginManager {
      */
     private void link(Plugin plugin, ManagedPlugin managedPlugin, Map<String, PluginComponentDescriptor> componentDescriptors) {
         // Global linking (rest-mapping for example)
-        Map<String, IPluginLoadingCallback> beans = alienContext.getBeansOfType(IPluginLoadingCallback.class);
-        for (IPluginLoadingCallback callback : beans.values()) {
+        for (IPluginLoadingCallback callback : SpringUtils.getBeansOfType(alienContext, IPluginLoadingCallback.class)) {
             callback.onPluginLoaded(managedPlugin);
         }
 
@@ -560,7 +551,23 @@ public class PluginManager {
         return pluginContexts;
     }
 
-    @AllArgsConstructor
+    public List<PluginComponent> getPluginComponents(String type) {
+        List<PluginComponent> pluginComponents = new ArrayList<>();
+        for (ManagedPlugin plugin : pluginContexts.values()) {
+            PluginDescriptor descriptor = plugin.getPlugin().getDescriptor();
+            if (descriptor.getComponentDescriptors() != null) {
+                for (PluginComponentDescriptor componentDescriptor : descriptor.getComponentDescriptors()) {
+                    if (componentDescriptor.getType().equals(type)) {
+                        pluginComponents
+                                .add(new PluginComponent(plugin.getPlugin().getId(), descriptor.getName(), descriptor.getVersion(), componentDescriptor));
+                    }
+                }
+            }
+        }
+        return pluginComponents;
+    }
+
+    @AllArgsConstructor(suppressConstructorProperties = true)
     private final class PluginLinker<T> {
         private IPluginLinker<T> linker;
         private Class<T> linkedType;

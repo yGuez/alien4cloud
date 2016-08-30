@@ -17,7 +17,6 @@ import org.springframework.stereotype.Component;
 import com.google.common.cache.*;
 
 import alien4cloud.component.repository.IFileRepository;
-import alien4cloud.dao.ESGenericIdDAO;
 import alien4cloud.model.topology.Topology;
 import alien4cloud.topology.TopologyService;
 import alien4cloud.topology.TopologyServiceCore;
@@ -38,13 +37,10 @@ public class EditionContextManager {
     private TopologyServiceCore topologyServiceCore;
     @Resource
     private TopologyService topologyService;
-    @Resource
+    @Inject
     private EditorRepositoryService repositoryService;
     @Inject
     private IFileRepository artifactRepository;
-
-    @Resource(name = "alien-es-dao")
-    private ESGenericIdDAO dao;
 
     // TODO make cache management time a parameter
     private LoadingCache<String, EditionContext> contextCache;
@@ -52,7 +48,7 @@ public class EditionContextManager {
     @PostConstruct
     public void setup() {
         // initialize the cache
-        contextCache = CacheBuilder.newBuilder().expireAfterAccess(5, TimeUnit.MINUTES).removalListener(new RemovalListener<String, EditionContext>() {
+        contextCache = CacheBuilder.newBuilder().expireAfterAccess(60, TimeUnit.MINUTES).removalListener(new RemovalListener<String, EditionContext>() {
             @Override
             public void onRemoval(RemovalNotification<String, EditionContext> removalNotification) {
                 log.debug("Topology edition context with id {} has been evicted. {} pending operations are lost.", removalNotification.getKey(),

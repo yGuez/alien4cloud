@@ -374,9 +374,22 @@ public class DeploymentTopologyService {
         // Set to new locations and process generation of all default properties
         ApplicationEnvironment environment = appEnvironmentServices.getOrFail(environmentId);
         ApplicationVersion appVersion = appVersionService.getOrFail(environment.getCurrentVersionId());
+
+        DeploymentTopology oldDT = alienDAO.findById(DeploymentTopology.class, DeploymentTopology.generateId(appVersion.getId(), environmentId));
+
         DeploymentTopology deploymentTopology = new DeploymentTopology();
         deploymentTopology.setOrchestratorId(orchestratorId);
         addLocationPolicies(deploymentTopology, groupsToLocations);
+
+        if (oldDT != null) {
+            // we should keep input properties
+            deploymentTopology.setInputProperties(oldDT.getInputProperties());
+            if (deploymentTopology.getOrchestratorId().equals(oldDT.getOrchestratorId())) {
+                // and orchestrator properties if not changed.
+                deploymentTopology.setProviderDeploymentProperties(oldDT.getProviderDeploymentProperties());
+            }
+        }
+
         Topology topology = topologyServiceCore.getOrFail(appVersion.getTopologyId());
         generateDeploymentTopology(DeploymentTopology.generateId(appVersion.getId(), environmentId), environment, topology, deploymentTopology);
         return getDeploymentConfiguration(deploymentTopology);

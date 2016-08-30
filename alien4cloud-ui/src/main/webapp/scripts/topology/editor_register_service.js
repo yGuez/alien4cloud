@@ -22,6 +22,10 @@ define(function (require) {
       url: '/editor',
       templateUrl: 'views/topology/topology_editor.html',
       controller: 'TopologyCtrl',
+      resolve: {
+        defaultFilters: [function(){return {};}],
+        badges: [function(){return[];}]
+      },
       menu: {
         id: 'am.' + prefix + '.editor',
         state: prefix + '.editor',

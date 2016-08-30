@@ -5,12 +5,13 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 
-import lombok.extern.slf4j.Slf4j;
-
+import alien4cloud.it.common.CommonStepDefinitions;
+import alien4cloud.utils.FileUtil;
+import cucumber.api.java.en.And;
+import org.alien4cloud.test.setup.TestDataRegistry;
 import org.junit.Assert;
 
 import alien4cloud.it.Context;
-import alien4cloud.it.setup.TestDataRegistry;
 import alien4cloud.model.components.IndexedNodeType;
 import alien4cloud.rest.csar.CsarUploadResult;
 import alien4cloud.rest.model.RestResponse;
@@ -18,9 +19,23 @@ import alien4cloud.rest.utils.JsonUtil;
 import alien4cloud.tosca.parser.ParsingError;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class UploadCSARSStepDefinition {
+    private static final CommonStepDefinitions COMMON_STEP_DEFINITIONS = new CommonStepDefinitions();
+
+    private void uploadArchive(Path source) throws Throwable {
+        Path csarTargetPath = Context.CSAR_TARGET_PATH.resolve(source.getFileName() + ".csar");
+        FileUtil.zip(source, csarTargetPath);
+        Context.getInstance().registerRestResponse(Context.getRestClientInstance().postMultipart("/rest/csars", "file", Files.newInputStream(csarTargetPath)));
+    }
+
+    @And("^I upload the local archive \"([^\"]*)\"$")
+    public void I_upload_the_local_archive(String archive) throws Throwable {
+        Path archivePath = Context.LOCAL_TEST_DATA_PATH.resolve(archive);
+        uploadArchive(archivePath);
+    }
 
     @Given("^I upload the archive \"([^\"]*)\"$")
     public void uploadArchive(String key) throws Throwable {

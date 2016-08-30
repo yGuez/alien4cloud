@@ -35,6 +35,7 @@ define(function (require) {
 
   modules.get('a4c-topology-editor', ['a4c-common', 'ui.bootstrap', 'a4c-tosca', 'a4c-styles']).controller('TopologyCtrl',
     ['$scope', '$modal', '$timeout', 'componentService', 'nodeTemplateService', 'toscaService',
+    'defaultFilters',
     'topoEditArtifacts',
     'topoEditDisplay',
     'topoEditGroups',
@@ -47,6 +48,7 @@ define(function (require) {
     'topoEditSubstitution',
     'topoEditYaml',
     function($scope, $modal, $timeout, componentService, nodeTemplateService, toscaService,
+    defaultFilters,
     topoEditArtifacts,
     topoEditDisplay,
     topoEditGroups,
@@ -58,6 +60,7 @@ define(function (require) {
     topoEditRelationships,
     topoEditSubstitution,
     topoEditYaml) {
+      $scope.defaultFilters = defaultFilters;
       $scope.isRuntime = false;
 
       $scope.isNodeTemplateCollapsed = false;

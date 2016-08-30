@@ -1,8 +1,8 @@
-Feature: Topology editor: nodes templates
+Feature: Topology editor: update node capability property value
 
   Background:
     Given I am authenticated with "ADMIN" role
-    And I create an empty topology template
+    And I create an empty topology
 
   Scenario: Updating a scalar property value of capability should succeed
     Given I execute the operation
@@ -29,7 +29,7 @@ Feature: Topology editor: nodes templates
       | capabilityName | host                                                                                        |
       | propertyName   | num_cpus                                                                                    |
       | propertyValue  | AB                                                                                          |
-    Then an exception of type "org.alien4cloud.tosca.editor.exception.PropertyValueException/alien4cloud.tosca.properties.constraints.exception.ConstraintViolationException" should be thrown
+    Then an exception of type "org.alien4cloud.tosca.editor.exception.PropertyValueException/alien4cloud.tosca.properties.constraints.exception.ConstraintValueDoNotMatchPropertyTypeException" should be thrown
 
   Scenario: Updating a scalar property value of capability with an unmatched constraint should fail
     Given I execute the operation
