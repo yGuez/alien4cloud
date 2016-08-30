@@ -31,8 +31,13 @@ define(function (require) {
         attrs: {
           '.title': { text: 'Compute' },
           '.version': { text: '1.0.2' },
+          '.topology-svg-icon': { text: '\uf112' },
           '.scaling-text': { text: '1 - 5 - 20' }
         }
+      });
+
+      $scope.$watch('visualDimensions', function() {
+        paper.setDimensions($scope.visualDimensions.width, $scope.visualDimensions.height);
       });
 
       graph.addCells([nodeTemplate]);

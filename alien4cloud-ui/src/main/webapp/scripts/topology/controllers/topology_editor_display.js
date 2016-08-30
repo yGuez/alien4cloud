@@ -65,7 +65,7 @@ define(function (require) {
             }
           });
           this.scope.visualDimensions = {
-            height: instance.scope.dimensions.height - 22,
+            height: instance.scope.dimensions.height,
             width: width
           };
         },
