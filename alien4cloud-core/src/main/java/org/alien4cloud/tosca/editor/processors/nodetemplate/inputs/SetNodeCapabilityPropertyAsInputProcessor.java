@@ -27,8 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 public class SetNodeCapabilityPropertyAsInputProcessor extends AbstractNodeProcessor<SetNodeCapabilityPropertyAsInputOperation> {
 
     @Override
-    protected void processNodeOperation(SetNodeCapabilityPropertyAsInputOperation operation, NodeTemplate nodeTemplate) {
-        Topology topology = EditionContextManager.getTopology();
+    protected void processNodeOperation(Topology topology, SetNodeCapabilityPropertyAsInputOperation operation, NodeTemplate nodeTemplate) {
 
         Capability capabilityTemplate = getOrFail(nodeTemplate.getCapabilities(), operation.getCapabilityName(), "Capability {} does not exist for node {}",
                 operation.getCapabilityName(), operation.getNodeName());

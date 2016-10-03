@@ -28,9 +28,7 @@ import org.springframework.stereotype.Component;
 public class SetNodeCapabilityPropertyAsOutputProcessor extends AbstractNodeProcessor<SetNodeCapabilityPropertyAsOutputOperation> {
 
     @Override
-    protected void processNodeOperation(SetNodeCapabilityPropertyAsOutputOperation operation, NodeTemplate nodeTemplate) {
-
-        Topology topology = EditionContextManager.getTopology();
+    protected void processNodeOperation(Topology topology, SetNodeCapabilityPropertyAsOutputOperation operation, NodeTemplate nodeTemplate) {
 
         // check if the capability / property exists
         check(operation, topology, nodeTemplate);

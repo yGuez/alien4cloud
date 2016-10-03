@@ -39,8 +39,7 @@ public class DeleteNodeProcessor extends AbstractNodeProcessor<DeleteNodeOperati
     private WorkflowsBuilderService workflowBuilderService;
 
     @Override
-    protected void processNodeOperation(DeleteNodeOperation operation, NodeTemplate template) {
-        Topology topology = EditionContextManager.getTopology();
+    protected void processNodeOperation(Topology topology, DeleteNodeOperation operation, NodeTemplate template) {
         Map<String, NodeTemplate> nodeTemplates = TopologyServiceCore.getNodeTemplates(topology);
 
         // FIXME cleanup files on the github repository / This way we can commit or revert if not saved.

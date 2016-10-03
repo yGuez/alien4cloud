@@ -9,6 +9,7 @@ import java.util.UUID;
 import javax.annotation.Resource;
 import javax.inject.Inject;
 
+import alien4cloud.plugin.aop.Overridable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
@@ -51,7 +52,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Service
-public class DeployService {
+public class DeployService implements IDeployService {
     @Resource(name = "alien-monitor-es-dao")
     private IGenericSearchDAO alienMonitorDao;
     @Resource(name = "alien-es-dao")
@@ -84,6 +85,8 @@ public class DeployService {
      * @param deploymentSource Application to be deployed or the Csar that contains test toplogy to be deployed
      * @return The id of the generated deployment.
      */
+    @Override
+    @Overridable
     public String deploy(final DeploymentTopology deploymentTopology, IDeploymentSource deploymentSource) {
         Map<String, String> locationIds = TopologyLocationUtils.getLocationIds(deploymentTopology);
         Map<String, Location> locations = deploymentTopologyService.getLocations(locationIds);
@@ -194,6 +197,7 @@ public class DeployService {
      * @param deploymentTopology
      * @return
      */
+    @Override
     public TopologyValidationResult prepareForDeployment(DeploymentTopology deploymentTopology) {
         // finalize the deploymentTopology for deployment
         deploymentTopologyService.processForDeployment(deploymentTopology);

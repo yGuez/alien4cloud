@@ -22,9 +22,7 @@ import org.springframework.stereotype.Component;
 public class UnSetNodePropertyAsOutputProcessor extends AbstractNodeProcessor<UnSetNodePropertyAsOutputOperation> {
 
     @Override
-    protected void processNodeOperation(UnSetNodePropertyAsOutputOperation operation, NodeTemplate nodeTemplate) {
-
-        Topology topology = EditionContextManager.getTopology();
+    protected void processNodeOperation(Topology topology, UnSetNodePropertyAsOutputOperation operation, NodeTemplate nodeTemplate) {
 
         // check if the property exists
         check(operation, topology, nodeTemplate);

@@ -25,8 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class SetNodePropertyAsInputProcessor extends AbstractNodeProcessor<SetNodePropertyAsInputOperation> {
     @Override
-    protected void processNodeOperation(SetNodePropertyAsInputOperation operation, NodeTemplate nodeTemplate) {
-        Topology topology = EditionContextManager.getTopology();
+    protected void processNodeOperation(Topology topology, SetNodePropertyAsInputOperation operation, NodeTemplate nodeTemplate) {
 
         PropertyDefinition inputPropertyDefinition = getOrFail(topology.getInputs(), operation.getInputName(), "Input {} not found in topology",
                 operation.getInputName());

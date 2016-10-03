@@ -25,9 +25,7 @@ import java.util.Set;
 public class SetNodeAttributeAsOutputProcessor extends AbstractNodeProcessor<SetNodeAttributeAsOutputOperation> {
 
     @Override
-    protected void processNodeOperation(SetNodeAttributeAsOutputOperation operation, NodeTemplate nodeTemplate) {
-
-        Topology topology = EditionContextManager.getTopology();
+    protected void processNodeOperation(Topology topology, SetNodeAttributeAsOutputOperation operation, NodeTemplate nodeTemplate) {
 
         // check if the attribute exists
         Map<String, IValue> attributes = nodeTemplate.getAttributes();

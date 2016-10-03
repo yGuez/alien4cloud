@@ -46,7 +46,7 @@ public class AddRelationshipProcessor extends AbstractNodeProcessor<AddRelations
     private TopologyCapabilityBoundsValidationServices topologyCapabilityBoundsValidationServices;
 
     @Override
-    protected void processNodeOperation(AddRelationshipOperation operation, NodeTemplate sourceNode) {
+    protected void processNodeOperation(Topology topology, AddRelationshipOperation operation, NodeTemplate sourceNode) {
         if (operation.getRelationshipName() == null || operation.getRelationshipName().isEmpty()) {
             throw new InvalidNameException("relationshipName", operation.getRelationshipName(), "Not null or empty");
         }
@@ -56,7 +56,6 @@ public class AddRelationshipProcessor extends AbstractNodeProcessor<AddRelations
                     "Unable to find requirement with name <" + operation.getRequirementName() + "> on the source node" + operation.getNodeName());
         }
 
-        Topology topology = EditionContextManager.getTopology();
         Map<String, NodeTemplate> nodeTemplates = TopologyServiceCore.getNodeTemplates(topology);
         // ensure that the target node exists
         TopologyServiceCore.getNodeTemplate(topology.getId(), operation.getTarget(), nodeTemplates);

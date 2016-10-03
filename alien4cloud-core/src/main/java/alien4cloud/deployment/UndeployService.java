@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.annotation.Resource;
 import javax.inject.Inject;
 
+import alien4cloud.events.DeploymentEndedEvent;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +33,8 @@ public class UndeployService {
     private IGenericSearchDAO alienDao;
     @Inject
     private DeploymentRuntimeStateService deploymentRuntimeStateService;
+    @Resource
+    private ApplicationContext applicationContext;
 
     /**
      * Un-deploy a deployment object
@@ -71,6 +75,7 @@ public class UndeployService {
             public void onSuccess(ResponseEntity data) {
                 deploymentService.markUndeployed(deployment);
                 log.info("Un-deployed deployment [{}] on cloud [{}]", deployment.getId(), deployment.getOrchestratorId());
+                applicationContext.publishEvent(new DeploymentEndedEvent(this, deployment.getId()));
             }
 
             @Override

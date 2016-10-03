@@ -10,6 +10,8 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.inject.Inject;
 
+import alien4cloud.deployment.DeploymentTopologyService;
+import alien4cloud.exception.NotFoundException;
 import org.alien4cloud.tosca.editor.operations.AbstractEditorOperation;
 import org.alien4cloud.tosca.editor.operations.UpdateFileOperation;
 import org.springframework.stereotype.Component;
@@ -35,6 +37,8 @@ public class EditionContextManager {
 
     @Resource
     private TopologyServiceCore topologyServiceCore;
+    @Resource
+    private DeploymentTopologyService deploymentTopologyService;
     @Resource
     private TopologyService topologyService;
     @Inject

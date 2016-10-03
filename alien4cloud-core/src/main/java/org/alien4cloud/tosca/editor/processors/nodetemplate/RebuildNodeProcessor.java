@@ -19,8 +19,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class RebuildNodeProcessor extends AbstractNodeProcessor<RebuildNodeOperation> {
     @Override
-    protected void processNodeOperation(RebuildNodeOperation operation, NodeTemplate nodeTemplate) {
-        Topology topology = EditionContextManager.getTopology();
+    protected void processNodeOperation(Topology topology, RebuildNodeOperation operation, NodeTemplate nodeTemplate) {
         log.debug("Rebuilding the node template <{}> of topology <{}> .", operation.getNodeName(), topology.getId());
         IndexedNodeType type = ToscaContext.getOrFail(IndexedNodeType.class, nodeTemplate.getType());
         NodeTemplate rebuiltNodeTemplate = NodeTemplateBuilder.buildNodeTemplate(type, nodeTemplate);

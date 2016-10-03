@@ -3,6 +3,7 @@ package org.alien4cloud.tosca.editor.processors.nodetemplate.inputs;
 import static alien4cloud.paas.function.FunctionEvaluator.isGetInput;
 import static alien4cloud.utils.AlienUtils.getOrFail;
 
+import alien4cloud.model.topology.Topology;
 import org.alien4cloud.tosca.editor.EditionContextManager;
 import org.alien4cloud.tosca.editor.operations.nodetemplate.inputs.UnsetNodeCapabilityPropertyAsInputOperation;
 import org.alien4cloud.tosca.editor.processors.nodetemplate.AbstractNodeProcessor;
@@ -25,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class UnsetNodeCapabilityPropertyAsInputProcessor extends AbstractNodeProcessor<UnsetNodeCapabilityPropertyAsInputOperation> {
     @Override
-    protected void processNodeOperation(UnsetNodeCapabilityPropertyAsInputOperation operation, NodeTemplate nodeTemplate) {
+    protected void processNodeOperation(Topology topology, UnsetNodeCapabilityPropertyAsInputOperation operation, NodeTemplate nodeTemplate) {
         Capability capabilityTemplate = getOrFail(nodeTemplate.getCapabilities(), operation.getCapabilityName(), "Capability {} do not exist for node {}",
                 operation.getCapabilityName(), operation.getNodeName());
 

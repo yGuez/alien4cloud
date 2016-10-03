@@ -16,9 +16,7 @@ import alien4cloud.model.topology.Topology;
 @Component
 public class RemoveGroupMemberProcessor extends AbstractNodeProcessor<RemoveGroupMemberOperation> {
     @Override
-    protected void processNodeOperation(RemoveGroupMemberOperation operation, NodeTemplate nodeTemplate) {
-        Topology topology = EditionContextManager.getTopology();
-
+    protected void processNodeOperation(Topology topology, RemoveGroupMemberOperation operation, NodeTemplate nodeTemplate) {
         NodeGroup nodeGroup = topology.getGroups().get(operation.getGroupName());
         if (nodeGroup != null && nodeGroup.getMembers() != null) {
             boolean removed = nodeGroup.getMembers().remove(operation.getNodeName());

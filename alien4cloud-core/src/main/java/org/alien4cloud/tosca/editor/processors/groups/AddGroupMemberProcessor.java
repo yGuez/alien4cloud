@@ -24,8 +24,7 @@ import alien4cloud.topology.TopologyUtils;
 @Component
 public class AddGroupMemberProcessor extends AbstractNodeProcessor<AddGroupMemberOperation> {
     @Override
-    protected void processNodeOperation(AddGroupMemberOperation operation, NodeTemplate nodeTemplate) {
-        Topology topology = EditionContextManager.getTopology();
+    protected void processNodeOperation(Topology topology, AddGroupMemberOperation operation, NodeTemplate nodeTemplate) {
         // Ensure that the group exist and create it if not.
         Map<String, NodeGroup> groups = topology.getGroups();
         if (groups == null) {

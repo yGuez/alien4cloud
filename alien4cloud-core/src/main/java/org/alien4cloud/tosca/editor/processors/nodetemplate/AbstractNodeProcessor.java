@@ -17,11 +17,15 @@ public abstract class AbstractNodeProcessor<T extends AbstractNodeOperation> imp
     @Override
     public void process(T operation) {
         Topology topology = EditionContextManager.getTopology();
+        process(topology, operation);
+    }
+
+    public void process(Topology topology, T operation) {
         Map<String, NodeTemplate> nodeTemplates = TopologyServiceCore.getNodeTemplates(topology);
         NodeTemplate nodeTemplate = TopologyServiceCore.getNodeTemplate(topology.getId(), operation.getNodeName(), nodeTemplates);
 
-        processNodeOperation(operation, nodeTemplate);
+        processNodeOperation(topology, operation, nodeTemplate);
     }
 
-    protected abstract void processNodeOperation(T operation, NodeTemplate nodeTemplate);
+    protected abstract void processNodeOperation(Topology topology, T operation, NodeTemplate nodeTemplate);
 }

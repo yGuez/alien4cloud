@@ -33,7 +33,10 @@ public class UpdateNodePropertyValueProcessor implements IEditorOperationProcess
     @Override
     public void process(UpdateNodePropertyValueOperation operation) {
         Topology topology = EditionContextManager.getTopology();
+        process(topology, operation);
+    }
 
+    public void process(Topology topology, UpdateNodePropertyValueOperation operation) {
         Map<String, NodeTemplate> nodeTemplates = TopologyServiceCore.getNodeTemplates(topology);
         NodeTemplate nodeTemp = TopologyServiceCore.getNodeTemplate(topology.getId(), operation.getNodeName(), nodeTemplates);
         String propertyName = operation.getPropertyName();

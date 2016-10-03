@@ -1,5 +1,6 @@
 package alien4cloud.rest.application;
 
+import alien4cloud.deployment.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -28,13 +29,6 @@ import org.springframework.web.context.request.async.DeferredResult;
 import alien4cloud.application.ApplicationEnvironmentService;
 import alien4cloud.application.ApplicationService;
 import alien4cloud.audit.annotation.Audit;
-import alien4cloud.deployment.DeployService;
-import alien4cloud.deployment.DeploymentRuntimeService;
-import alien4cloud.deployment.DeploymentRuntimeStateService;
-import alien4cloud.deployment.DeploymentService;
-import alien4cloud.deployment.DeploymentTopologyService;
-import alien4cloud.deployment.UndeployService;
-import alien4cloud.deployment.WorkflowExecutionService;
 import alien4cloud.deployment.model.DeploymentConfiguration;
 import alien4cloud.exception.AlreadyExistException;
 import alien4cloud.exception.NotFoundException;
@@ -75,7 +69,7 @@ public class ApplicationDeploymentController {
     @Resource
     private DeploymentService deploymentService;
     @Inject
-    private DeployService deployService;
+    private IDeployService IDeployService;
     @Inject
     private DeploymentTopologyService deploymentTopologyService;
     @Inject
@@ -126,7 +120,7 @@ public class ApplicationDeploymentController {
         }
 
         // prepare the deployment
-        TopologyValidationResult validation = deployService.prepareForDeployment(deploymentTopology);
+        TopologyValidationResult validation = IDeployService.prepareForDeployment(deploymentTopology);
 
         // if not valid, then return validation errors
         if (!validation.isValid()) {
@@ -137,7 +131,7 @@ public class ApplicationDeploymentController {
         }
 
         // process with the deployment
-        deployService.deploy(deploymentTopology, application);
+        IDeployService.deploy(deploymentTopology, application);
         // TODO OrchestratorDisabledException handling in the ExceptionHandler
         // return RestResponseBuilder.<Void> builder().error(
         // new RestError(RestErrorCode.CLOUD_DISABLED_ERROR.getCode(), "Cloud with id <" + environment.getCloudId() + "> is disabled or not found"))

@@ -3,6 +3,7 @@ package org.alien4cloud.tosca.editor.processors.nodetemplate.inputs;
 import static alien4cloud.paas.function.FunctionEvaluator.isGetInput;
 import static alien4cloud.utils.AlienUtils.getOrFail;
 
+import alien4cloud.model.topology.Topology;
 import org.alien4cloud.tosca.editor.EditionContextManager;
 import org.alien4cloud.tosca.editor.operations.nodetemplate.inputs.UnsetNodePropertyAsInputOperation;
 import org.alien4cloud.tosca.editor.processors.nodetemplate.AbstractNodeProcessor;
@@ -24,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class UnsetNodePropertyAsInputProcessor extends AbstractNodeProcessor<UnsetNodePropertyAsInputOperation> {
     @Override
-    protected void processNodeOperation(UnsetNodePropertyAsInputOperation operation, NodeTemplate nodeTemplate) {
+    protected void processNodeOperation(Topology topology, UnsetNodePropertyAsInputOperation operation, NodeTemplate nodeTemplate) {
         // check if the node property value is a get_input
         AbstractPropertyValue currentValue = nodeTemplate.getProperties().get(operation.getPropertyName());
         if (!isGetInput(currentValue)) {

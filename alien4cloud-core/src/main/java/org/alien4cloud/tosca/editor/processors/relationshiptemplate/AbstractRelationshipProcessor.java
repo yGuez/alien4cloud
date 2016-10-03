@@ -1,5 +1,6 @@
 package org.alien4cloud.tosca.editor.processors.relationshiptemplate;
 
+import alien4cloud.model.topology.Topology;
 import org.alien4cloud.tosca.editor.EditionContextManager;
 import org.alien4cloud.tosca.editor.operations.relationshiptemplate.AbstractRelationshipOperation;
 import org.alien4cloud.tosca.editor.processors.IEditorOperationProcessor;
@@ -17,7 +18,7 @@ import static alien4cloud.utils.AlienUtils.safe;
 public abstract class AbstractRelationshipProcessor<T extends AbstractRelationshipOperation> extends AbstractNodeProcessor<T> {
 
     @Override
-    protected void processNodeOperation(T operation, NodeTemplate nodeTemplate) {
+    protected void processNodeOperation(Topology topology, T operation, NodeTemplate nodeTemplate) {
         RelationshipTemplate relationshipTemplate = safe(nodeTemplate.getRelationships()).get(operation.getRelationshipName());
         if (relationshipTemplate == null) {
             throw new NotFoundException("The relationship with name [" + operation.getRelationshipName() + "] do not exist for the node ["

@@ -41,6 +41,10 @@ public class AddNodeProcessor implements IEditorOperationProcessor<AddNodeOperat
     @Override
     public void process(AddNodeOperation operation) {
         Topology topology = EditionContextManager.getTopology();
+        process(topology, operation);
+    }
+
+    public void process(Topology topology, AddNodeOperation operation) {
 
         if (!TopologyUtils.isValidNodeName(operation.getNodeName())) {
             throw new InvalidNodeNameException("A name should only contains alphanumeric character from the basic Latin alphabet and the underscore.");
@@ -83,4 +87,5 @@ public class AddNodeProcessor implements IEditorOperationProcessor<AddNodeOperat
         WorkflowsBuilderService.TopologyContext topologyContext = workflowBuilderService.buildTopologyContext(topology);
         workflowBuilderService.addNode(topologyContext, operation.getNodeName(), nodeTemplate);
     }
+
 }

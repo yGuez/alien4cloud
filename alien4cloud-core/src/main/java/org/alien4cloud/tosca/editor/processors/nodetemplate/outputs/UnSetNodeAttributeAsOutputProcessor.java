@@ -24,9 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 public class UnSetNodeAttributeAsOutputProcessor extends AbstractNodeProcessor<UnSetNodeAttributeAsOutputOperation> {
 
     @Override
-    protected void processNodeOperation(UnSetNodeAttributeAsOutputOperation operation, NodeTemplate nodeTemplate) {
-
-        Topology topology = EditionContextManager.getTopology();
+    protected void processNodeOperation(Topology topology, UnSetNodeAttributeAsOutputOperation operation, NodeTemplate nodeTemplate) {
 
         // check if the attribute exists
         check(operation, topology, nodeTemplate);
