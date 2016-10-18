@@ -147,7 +147,7 @@ public class ApplicationDeploymentController {
      * @return An empty rest response.
      */
     @ApiOperation(value = "Un-Deploys the application on the configured PaaS.", notes = "The logged-in user must have the [ APPLICATION_MANAGER ] role for this application. Application environment role required [ DEPLOYMENT_MANAGER ]")
-    @RequestMapping(value = "/{applicationId}/environments/{applicationEnvironmentId}/deployment", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{applicationId:.+}/environments/{applicationEnvironmentId}/deployment", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("isAuthenticated()")
     @Audit
     public RestResponse<Void> undeploy(@PathVariable String applicationId, @PathVariable String applicationEnvironmentId) {
@@ -171,7 +171,7 @@ public class ApplicationDeploymentController {
      * @return the active deployment
      */
     @ApiOperation(value = "Get active deployment for the given application on the given cloud.", notes = "Application role required [ APPLICATION_MANAGER | APPLICATION_DEVOPS ] and Application environment role required [ DEPLOYMENT_MANAGER ]")
-    @RequestMapping(value = "/{applicationId}/environments/{applicationEnvironmentId}/active-deployment", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{applicationId:.+}/environments/{applicationEnvironmentId}/active-deployment", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("isAuthenticated()")
     public RestResponse<Deployment> getActiveDeployment(@PathVariable String applicationId, @PathVariable String applicationEnvironmentId) {
         Application application = applicationService.checkAndGetApplication(applicationId);
@@ -221,7 +221,7 @@ public class ApplicationDeploymentController {
      * @return A {@link RestResponse} that contains detailed informations (See {@link InstanceInformation}) of the application on the PaaS it is deployed.
      */
     @ApiOperation(value = "Get detailed informations for every instances of every node of the application on the PaaS.", notes = "Application role required [ APPLICATION_MANAGER | APPLICATION_DEVOPS ] and Application environment role required [ APPLICATION_USER | DEPLOYMENT_MANAGER ]")
-    @RequestMapping(value = "/{applicationId}/environments/{applicationEnvironmentId}/deployment/informations", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{applicationId:.+}/environments/{applicationEnvironmentId}/deployment/informations", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("isAuthenticated()")
     public DeferredResult<RestResponse<Map<String, Map<String, InstanceInformation>>>> getInstanceInformation(@PathVariable String applicationId,
             @PathVariable String applicationEnvironmentId) {
@@ -256,7 +256,7 @@ public class ApplicationDeploymentController {
         return instancesDeferredResult;
     }
 
-    @RequestMapping(value = "/{applicationId}/environments/{applicationEnvironmentId}/deployment/maintenance", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{applicationId:.+}/environments/{applicationEnvironmentId}/deployment/maintenance", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("isAuthenticated()")
     @Audit
     public RestResponse<Void> switchMaintenanceModeOn(@PathVariable String applicationId, @PathVariable String applicationEnvironmentId) {
@@ -271,7 +271,7 @@ public class ApplicationDeploymentController {
         return RestResponseBuilder.<Void> builder().build();
     }
 
-    @RequestMapping(value = "/{applicationId}/environments/{applicationEnvironmentId}/deployment/maintenance", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{applicationId:.+}/environments/{applicationEnvironmentId}/deployment/maintenance", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("isAuthenticated()")
     @Audit
     public RestResponse<Void> switchMaintenanceModeOff(@PathVariable String applicationId, @PathVariable String applicationEnvironmentId) {
@@ -286,7 +286,7 @@ public class ApplicationDeploymentController {
         return RestResponseBuilder.<Void> builder().build();
     }
 
-    @RequestMapping(value = "/{applicationId}/environments/{applicationEnvironmentId}/deployment/{nodeTemplateId}/{instanceId}/maintenance", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{applicationId:.+}/environments/{applicationEnvironmentId}/deployment/{nodeTemplateId}/{instanceId}/maintenance", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("isAuthenticated()")
     @Audit
     public RestResponse<Void> switchInstanceMaintenanceModeOn(@PathVariable String applicationId, @PathVariable String applicationEnvironmentId,
@@ -302,7 +302,7 @@ public class ApplicationDeploymentController {
         return RestResponseBuilder.<Void> builder().build();
     }
 
-    @RequestMapping(value = "/{applicationId}/environments/{applicationEnvironmentId}/deployment/{nodeTemplateId}/{instanceId}/maintenance", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{applicationId:.+}/environments/{applicationEnvironmentId}/deployment/{nodeTemplateId}/{instanceId}/maintenance", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("isAuthenticated()")
     @Audit
     public RestResponse<Void> switchInstanceMaintenanceModeOff(@PathVariable String applicationId, @PathVariable String applicationEnvironmentId,
@@ -339,7 +339,7 @@ public class ApplicationDeploymentController {
      */
     @ApiOperation(value = "Scale the application on a particular node.", notes = "Returns the detailed informations of the application on the PaaS it is deployed."
             + " Application role required [ APPLICATION_MANAGER | APPLICATION_DEVOPS ] and Application environment role required [ DEPLOYMENT_MANAGER ]")
-    @RequestMapping(value = "/{applicationId}/environments/{applicationEnvironmentId}/scale/{nodeTemplateId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{applicationId:.+}/environments/{applicationEnvironmentId}/scale/{nodeTemplateId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("isAuthenticated()")
     @Audit
     public DeferredResult<RestResponse<Void>> scale(@PathVariable String applicationId, @PathVariable String applicationEnvironmentId,
@@ -371,7 +371,7 @@ public class ApplicationDeploymentController {
     }
 
     @ApiOperation(value = "Launch a given workflow.", authorizations = { @Authorization("ADMIN"), @Authorization("APPLICATION_MANAGER") })
-    @RequestMapping(value = "/{applicationId}/environments/{applicationEnvironmentId}/workflows/{workflowName}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{applicationId:.+}/environments/{applicationEnvironmentId}/workflows/{workflowName}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("isAuthenticated()")
     @Audit
     public DeferredResult<RestResponse<Void>> launchWorkflow(

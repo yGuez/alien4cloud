@@ -8,7 +8,7 @@ define(function(require) {
     templateUrl: 'views/topology/topology_editor_layout.html',
     controller: 'TopologyEditorCtrl',
     resolve: {
-      context: function() { return {}; },
+      context: function() { return {}; }
     },
     menu: {
       id: 'am.applications.detail.topology',

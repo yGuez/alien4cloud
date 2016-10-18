@@ -1,18 +1,19 @@
 package alien4cloud.tosca.container;
 
-import alien4cloud.csar.services.ICsarDependencyLoader;
-import alien4cloud.model.components.CSARDependency;
-import alien4cloud.topology.TopologyService;
-import alien4cloud.utils.VersionUtil;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
-
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+
+import org.alien4cloud.tosca.catalog.index.ICsarDependencyLoader;
+import org.alien4cloud.tosca.model.CSARDependency;
+
+import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
+
+import alien4cloud.utils.VersionUtil;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 @Getter
 @Setter
@@ -23,10 +24,10 @@ public class ToscaTypeLoader {
     /** Count the usage of a given type in the current context. */
     private Map<String, Integer> typeUsagesMap = Maps.newHashMap();
 
-    private ICsarDependencyLoader dependencyLoader;
+    private ICsarDependencyLoader csarDependencyLoader;
 
-    public ToscaTypeLoader(ICsarDependencyLoader dependencyLoader) {
-        this.dependencyLoader = dependencyLoader;
+    public ToscaTypeLoader(ICsarDependencyLoader csarDependencyLoader) {
+        this.csarDependencyLoader = csarDependencyLoader;
     }
 
     public Set<CSARDependency> getLoadedDependencies() {
@@ -132,11 +133,11 @@ public class ToscaTypeLoader {
         } else {
             addNewDependency(directDependency, type);
         }
-        Set<CSARDependency> transitiveDependencies = dependencyLoader.getDependencies(directDependency.getName(), directDependency.getVersion());
+        Set<CSARDependency> transitiveDependencies = csarDependencyLoader.getDependencies(directDependency.getName(), directDependency.getVersion());
         for (CSARDependency transitiveDependency : transitiveDependencies) {
             Set<String> transitiveTypesLoadedByDependency = dependenciesMap.get(transitiveDependency);
             if (transitiveTypesLoadedByDependency == null) {
-                addNewDependency(TopologyService.buildDependencyBean(transitiveDependency.getName(), transitiveDependency.getVersion()), type);
+                addNewDependency(csarDependencyLoader.buildDependencyBean(transitiveDependency.getName(), transitiveDependency.getVersion()), type);
             } else {
                 transitiveTypesLoadedByDependency.add(type);
             }

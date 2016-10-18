@@ -1,5 +1,7 @@
 {
   "APPLICATIONS" : {
+    "ARCHIVE_NAME": "Nom d'archive (Id)",
+    "ARCHIVE_NAME_HELP": "Le nom de l'archive TOSCA (Cloud Service Archive) liée à l'application. C'est également l'id unique et immutable de l'application.",
     "APPLICATION" : "Application",
     "APPLICATION_ROLES" : "Rôles d'application",
     "DEPLOY" : "Déployer",
@@ -91,6 +93,12 @@
       "CAPABILITY_CARDINALITIES_TOOLTIP" : "maximum (restant)",
       "CARDINALITIES_TOOLTIP" : "minimun..maximum (restant)",
       "DEPENDENCY" : "Dépendances",
+      "DEPENDENCIES" : {
+        "CHANGE_VERSION" : {
+          "TITLE": "Modifier la version",
+          "CONFIRM" : "Confirmez-vous le changement de version de la dépendance ? Cette opération peut affecter certains nodes et/ou relations dans la topologie."
+        }
+      },
       "DESC_TEMPLATE" : "Description du modèle",
       "GROUPS" : {
         "ADD" : "Ajouter un groupe",
@@ -106,7 +114,7 @@
       "LOCATION_UNAUTHORIZED_MESSAGE" : "Vous n'avez plus l'authorisation de déployer sur la location précédament selectionnée pour cet environement (location: <{{locationName}}>, orchestrateur: <{{orchestratorName}}>). \n Veuillez contacter votre administrateur.",
       "NODE_INFO" : "Noeud sélectionné",
       "NO_OUTPUTS" : "Aucune propriété ou attribut en sortie",
-      "ORCHESTRATOR_PROPERTIES" : "Propriétés de l'orchestrator",
+      "ORCHESTRATOR_PROPERTIES" : "Propriétés de l'orchestrateur",
       "PLAN" : "Workflow",
       "PROPERTIES_INPUTS" : "Propriétés d'entrée",
       "PROPERTIES_OUTPUTS" : "Propriétés de sortie",
@@ -176,6 +184,9 @@
           "MISSING" : "Propriété obligatoire"
         },
         "TOADD_RELATIONSHIP_LABEL" : "Prérequis non statisfaits (ajoutez un lien)",
+        "VALIDATION_FAILED" : "La dernière topologie enregistrée n'est pas valide, aller dans l'éditeur de topology pour plus d'informations.",
+        "VALIDATION_SUCCESS" : "La dernière topologie enregistrée est valide.",
+        "VALIDATION_SUCCESS_CURRENT_TOPOLOGY" : "La topologie courante est valide.",
         "WORKFLOWS" : {
           "HAS_ERROR" : "Le workflow '{{workflowName}}' n'est pas valide : {{errorCount}} erreur(s)",
           "TITLE" : "Workflows"
@@ -288,6 +299,7 @@
   "CANCEL" : "Annuler",
   "CANCELLED" : "Annulé",
   "CLOSE" : "Fermer",
+  "OK": "OK",
   "CLOUDS" : {
     "ADMINISTRATION" : {
       "DRIVER" : {
@@ -330,6 +342,7 @@
   "COMMON" : {
     "ADD" : "Ajouter",
     "ATTRIBUTES" : "Attributs",
+    "AUTHOR" : "Auteur",
     "CAPABILITIES" : "Capacités",
     "DATA": "Données",
     "DESCRIPTION" : "Description",
@@ -445,7 +458,8 @@
       "YAML_MAPPING_NODE_EXPECTED" : "Un noeud de type mapping est attendu.",
       "YAML_SCALAR_NODE_EXPECTED" : "Un noeud YAML de type scalar est attendu ici.",
       "YAML_SEQUENCE_EXPECTED" : "Une séquence YAML est attendu."
-    }
+    },
+    "WORKSPACE": "Workspaces"
   },
   "CONFIRM" : "Confirmer",
   "CONFIRM_MESSAGE" : "Êtes-vous sûr de vouloir effectuer cette action ?",
@@ -468,7 +482,6 @@
     "ACTIONS" : "Opérations",
     "ARCHIVE" : "Nom du dossier",
     "ARCHIVE_TO_IMPORT" : "Archive(s) à importer",
-    "AUTHOR" : "Auteur",
     "BRANCH" : "Branche",
     "BRANCHE_TO_IMPORT" : "Sur la branche",
     "CREDENTIALS" : "Authentification",
@@ -538,6 +551,55 @@
     "EDIT_ROLE_HEADER_RESOURCE" : "Ajouter ou retirer des roles à la ressource",
     "EDIT_ROLE_RESOURCE" : "Editer les roles sur la ressource"
   },
+  "EDITOR": {
+    "SAVE": "Sauver",
+    "DO_NOT_SAVE": "Ignorer",
+    "ASK_SAVE": {
+      "TITLE": "Changements non sauvegardés",
+      "MESSAGE": "Voulez vous sauvegarder les changements avant de quitter l'éditeur ?"
+    },
+    "UNDO": "Annuler",
+    "REDO": "Rejouer",
+    "OPERATION": "Operation",
+    "GIT_HISTORY": "Historique git",
+    "EMPTY_GIT_HISTORY": "L'historique git est vide, vous devez sauver la topologie.",
+    "MENU_TOPOLOGY": "Topologie",
+    "MENU_WORKFLOW": "Workflows",
+    "MENU_FILES": "Fichiers de l'archive",
+    "MENU_VALIDATION": "Validation de la topologie",
+    "MENU_HISTORY": "Historique",
+    "GIT": {
+      "MODAL": {
+        "REMOTE": "Configuration du dépôt git",
+        "PUSH": "Envoyer vers le dépôt git",
+        "PULL": "Récupérer du dépôt git",
+        "URL": "URL",
+        "URL_VALUE": "https://...",
+        "REMOTE_BRANCH": "Branche",
+        "REMOTE_BRANCH_VALUE": "Branche Distante (défaut: 'master')",
+        "USERNAME": "Identifiant",
+        "PASSWORD": "Mot de passe"
+      },
+      "REMOTE": "Dépôt",
+      "PUSH": "Envoyer",
+      "PULL": "Récupérer",
+      "OPERATIONS": {
+        "PULL": {
+          "TITLE": "Opération de récupération depuis le dépôt git",
+          "SUCCESS_MSGE": "Récupération depuis le dépôt git terminée avec succès."
+        },
+        "PUSH": {
+          "TITLE": "Opération d'envoi vers le dépôt git push",
+          "SUCCESS_MSGE": "Envoi vers le dépôt git terminé avec succès."
+        }
+      }
+    },
+    "VALIDATION" :{
+      "CURRENT_TOPOLOGY": "Topologie courante",
+      "CURRENT_TOPOLOGY_NO_OPERATIONS": "La topologie actuelle n'a pas changé.",
+      "LAST_SAVED_TOPOLOGY": "Dernière topologie enregistrée"
+    }
+  },
   "END_DATE" : "Date de fin",
   "ENVIRONMENT_TYPE" : {
     "DEVELOPMENT" : "Développement",
@@ -575,6 +637,7 @@
       "MESSAGE": "Impossible d'effectuer cette action car la resource est utilisée par d'autres objets",
       "TITLE" : "Resource utilisée"
     },
+    "509": "Operation non supportée",
     "601" : "Le déploiement de l'application a échoué",
     "602" : "L'Arrêt de l'application a échoué",
     "604" : "Une application doit nécéssairement avoir au moins un environnement",
@@ -591,8 +654,11 @@
     "617" : "Aucune modification a été détecté depuis le dernier import, celui-ci n'a pas été réalisé.",
     "618" : "Le nom d'un node ne doit contenir que des caractères alpha-numérique de l'alphabet latin classique et le underscrore.",
     "619" : "Le nom de l'application est invalide.",
+    "620" : "Le repository Git requiert un fusionnement manuel.",
+    "621" : "Le repository Git n'est pas dans un status 'SAFE', Veuillez corriger son état manuellement.",
     "650" : "Au moins deux de vos Compute ont un conflit de nom.",
     "651" : "Un BlockStorage ne peut pas avoir un volumeId lorsque le cloud a l'option 'deletable' d'activée.",
+    "750" : "Concurrence dans le processus d'édition",
     "800" : {
       "equal" : "Valeur constante égale à {{reference}}",
       "greaterOrEqual" : "La valeur doit être >= {{reference}}",
@@ -617,6 +683,7 @@
     "830" : "Une version releasée ne peut référencer des dépendances SNAPSHOT",
     "831" : "Cette version ne peut être renomée car elle est déjà utilisée par ailleur",
     "850" : "Cette opération n'est pas permise sur ce type de workflow",
+    "860" : "La topologie séléctionnée a besoin d'être réconciliée",
     "INTERNAL" : "Erreur interne",
     "UNKNOWN" : "Erreur inconnue"
   },
@@ -681,7 +748,7 @@
   "NAVADMIN" : {
     "MENU_AUDIT" : "Audit",
     "MENU_METRICS" : "Métriques",
-    "MENU_ORCHESTRATORS" : "Orchestrators",
+    "MENU_ORCHESTRATORS" : "Orchestrateurs",
     "MENU_PLUGINS" : "Plugins",
     "MENU_TAGS" : "Méta-propriétés",
     "MENU_USERS" : "Utilisateurs"
@@ -810,7 +877,10 @@
     "BREADCRUMB" : {
       "TEMPLATE_LIST" : "Modèles de topologie"
     },
-    "NEW" : "Nouveau Modèle"
+    "DUPLICATE": "Dupliquer la topology",
+    "NEW" : "Nouveau Modèle",
+    "REMOVE_TITLE": "Comment supprimer un modèle de topologie ?",
+    "REMOVE_CONTENT": "Tous les modèles de topologie sont liés à une archive. En la supprimant vous supprimerai les deux."
   },
   "TRUE" : "Vrai",
   "UPDATE_DATE" : "Date de mise à jour",
