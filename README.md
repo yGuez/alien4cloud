@@ -42,3 +42,4 @@ run the folowing command to build the project:
 ```sh
 $ mvn clean install -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true
 ```
+- install jenkins
